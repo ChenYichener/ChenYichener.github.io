@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c86339b780cf.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c8643888662e.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c86438837f56.png">
-<meta property="og:updated_time" content="2019-03-11T11:36:36.292Z">
+<meta property="og:updated_time" content="2019-03-11T11:39:43.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis的那些事儿">
 <meta name="twitter:description" content="一、NoSQL概述NoSQL是Not only SQL的缩写，大意为“不只是SQL”，说明这项技术是传统关系型数据库的补充而非替代">
@@ -200,14 +200,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-server文件路径   redis.conf文件路径</span><br><span class="line"></span><br><span class="line">实例： /usr/local/redis/bin/redis-server      /usr/local/redis/redis.conf</span><br></pre></td></tr></table></figure>
 <h4 id="7、客户端登录"><a href="#7、客户端登录" class="headerlink" title="7、客户端登录"></a>7、客户端登录</h4><p>进入到安装redis的bin目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli                      进入redis客户端</span><br></pre></td></tr></table></figure>
-<h1 id="三、Redis常用的五种数据结构"><a href="#三、Redis常用的五种数据结构" class="headerlink" title="三、Redis常用的五种数据结构"></a>三、Redis常用的五种数据结构</h1><h4 id="3-1-总体结构"><a href="#3-1-总体结构" class="headerlink" title="3.1)总体结构"></a>3.1)总体结构</h4><table><br>    <tr><br>        <td rowspan="6">KEY</td><br>        <td>VALUE</td><br>    </tr><br>    <tr><br>        <td>string</td><br>        </tr><br>    <tr><br>        <td>list</td><br>    </tr><br>    <tr><br>        <td>set</td><br>    </tr><br>    <tr><br>        <td>hash</td><br>    </tr><br>    <tr><br>        <td>zset</td><br>    </tr><br></table>
+<h1 id="三、Redis常用的五种数据结构"><a href="#三、Redis常用的五种数据结构" class="headerlink" title="三、Redis常用的五种数据结构"></a>三、Redis常用的五种数据结构</h1><h2 id="1-总体结构"><a href="#1-总体结构" class="headerlink" title="1) 总体结构"></a>1) 总体结构</h2><table><br>    <tr><br>        <td rowspan="6">KEY</td><br>        <td>VALUE</td><br>    </tr><br>    <tr><br>        <td>string</td><br>        </tr><br>    <tr><br>        <td>list</td><br>    </tr><br>    <tr><br>        <td>set</td><br>    </tr><br>    <tr><br>        <td>hash</td><br>    </tr><br>    <tr><br>        <td>zset</td><br>    </tr><br></table>
 
 <p>Redis中的数据，总体上是键值对，不同数据类型指的是键值对中值的类型。</p>
-<h4 id="1、string类型"><a href="#1、string类型" class="headerlink" title="1、string类型"></a>1、string类型</h4><p>Redis中最基本的类型，它是key对应的一个单一值。二进制安全，不必担心由于编码等问题导致二进制数据变化。所以redis的string可以包含任何数据，比如jpg图片或者序列化的对象。Redis中一个字符串值的最大容量是512M。</p>
-<h4 id="2、list类型"><a href="#2、list类型" class="headerlink" title="2、list类型"></a>2、list类型</h4><p>Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。说明它的底层是基于链表实现的，所以它操作时头尾效率高，中间效率低。</p>
-<h4 id="3、set类型"><a href="#3、set类型" class="headerlink" title="3、set类型"></a>3、set类型</h4><p>Redis的set是string类型的无序集合。它是基于哈希表实现的。</p>
-<h4 id="4、hash类型"><a href="#4、hash类型" class="headerlink" title="4、hash类型"></a>4、hash类型</h4><p>本身就是一个键值对集合。可以当做Java中的Map&lt;String,Object&gt;对待。</p>
-<h4 id="5、zset类型"><a href="#5、zset类型" class="headerlink" title="5、zset类型"></a>5、zset类型</h4><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。zset的成员是唯一的,但分数(score)却可以重复。</p>
+<h2 id="2、string类型"><a href="#2、string类型" class="headerlink" title="2、string类型"></a>2、string类型</h2><p>Redis中最基本的类型，它是key对应的一个单一值。二进制安全，不必担心由于编码等问题导致二进制数据变化。所以redis的string可以包含任何数据，比如jpg图片或者序列化的对象。Redis中一个字符串值的最大容量是512M。</p>
+<h2 id="3、list类型"><a href="#3、list类型" class="headerlink" title="3、list类型"></a>3、list类型</h2><p>Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。说明它的底层是基于链表实现的，所以它操作时头尾效率高，中间效率低。</p>
+<h2 id="4、set类型"><a href="#4、set类型" class="headerlink" title="4、set类型"></a>4、set类型</h2><p>Redis的set是string类型的无序集合。它是基于哈希表实现的。</p>
+<h2 id="5、hash类型"><a href="#5、hash类型" class="headerlink" title="5、hash类型"></a>5、hash类型</h2><p>本身就是一个键值对集合。可以当做Java中的Map&lt;String,Object&gt;对待。</p>
+<h2 id="6、zset类型"><a href="#6、zset类型" class="headerlink" title="6、zset类型"></a>6、zset类型</h2><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。zset的成员是唯一的,但分数(score)却可以重复。</p>
 <h1 id="四、Redis命令行操作"><a href="#四、Redis命令行操作" class="headerlink" title="四、Redis命令行操作"></a>四、Redis命令行操作</h1><h3 id="1、基本操作"><a href="#1、基本操作" class="headerlink" title="1、基本操作"></a>1、基本操作</h3><h4 id="1）切换数据库"><a href="#1）切换数据库" class="headerlink" title="1）切换数据库"></a>1）切换数据库</h4><p> Redis默认有16个数据库。使用【 select  [数据库索引] 】进行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379[1]&gt; select 15</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[15]&gt; select 0</span><br><span class="line">O</span><br></pre></td></tr></table></figure>
 <h4 id="2）查看数据库长度"><a href="#2）查看数据库长度" class="headerlink" title="2）查看数据库长度"></a>2）查看数据库长度</h4><p>使用【 dbsize 】命令查看当前数据库中存在元素的个数</p>
