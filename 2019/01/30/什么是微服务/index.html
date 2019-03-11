@@ -17,7 +17,8 @@
 <meta property="og:description" content="一、什么是微服务1）马丁福勒">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c8651de5bbbb.png">
-<meta property="og:updated_time" content="2019-03-11T12:20:12.447Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/11/5c8653688d507.png">
+<meta property="og:updated_time" content="2019-03-11T12:29:30.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是微服务">
 <meta name="twitter:description" content="一、什么是微服务1）马丁福勒">
@@ -180,9 +181,11 @@
         <h1 id="一、什么是微服务"><a href="#一、什么是微服务" class="headerlink" title="一、什么是微服务"></a>一、什么是微服务</h1><h2 id="1）马丁福勒"><a href="#1）马丁福勒" class="headerlink" title="1）马丁福勒"></a>1）马丁福勒</h2><p><img src="https://i.loli.net/2019/03/11/5c8651de5bbbb.png" alt><br><a id="more"></a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In short, the microservice architectural style [[1]]</span><br><span class="line">(https://www.martinfowler.com/articles/microservices.html#footnote-etymology) is an </span><br><span class="line">approach to developing a single application as a suite of small services, each running</span><br><span class="line">in its own process and communicating with lightweight mechanisms, often an HTTP </span><br><span class="line">resource API. These services are built around business capabilities and independently</span><br><span class="line">deployable by fully automated deployment machinery. There is a bare minimum of </span><br><span class="line">centralized management of these services, which may be written in different programming</span><br><span class="line">languages and use different data storage technologies.</span><br></pre></td></tr></table></figure></p>
 <p>以上这段话是我从微服务的提出者<a href="https://martinfowler.com/" target="_blank" rel="noopener">Martin Fowler</a>的博客引用的、这一小段的内容足以来说明微服务是什么了、下面谈谈我自己对于微服务的理解：</p>
 <h2 id="2）-我对微服务的理解"><a href="#2）-我对微服务的理解" class="headerlink" title="2） 我对微服务的理解"></a>2） 我对微服务的理解</h2><p>其实在业界对于微服务并没有一个非常准确的定义， 微服务是一种软件的架构风格， 将一个一个的服务演化成一个一个单一的应用， 每一个应用都有是一个独立的进程， 多个服务之间使用例如RESTful HTTP 进行通信，每一个微服务独立的运行， 形成一个高内聚，低耦合的模块， 每一个服务仅仅专注与自己的领域， 甚至说各个微服务可以使用不同的语言进行编写， 使用不同的数据库， 因为如果该服务是一个服务的Provider， 那么我只需提供Consuemr需要的数据，形成了一个个组件的形式， 就像我们的汽车一样， 一个服务的Carsh不会造成一个项目的崩塌， 一个服务的升级也不会影响其他的模块， 这样我们项目的可维护性，拓展性大大的增加</p>
+<p>单体应用和微服务<br><img src="https://i.loli.net/2019/03/11/5c8653688d507.png" alt></p>
 <h1 id="二、微服务和微服务架构"><a href="#二、微服务和微服务架构" class="headerlink" title="二、微服务和微服务架构"></a>二、微服务和微服务架构</h1><h2 id="1、微服务"><a href="#1、微服务" class="headerlink" title="1、微服务"></a>1、微服务</h2><p>​    微服务强调的是服务的大小，他关注的是某一个点，是具体解决某一个问题/提供落地服务的一个服务应用<br> 狭义的看成IDEA中的一个一个微服务工程或者Module，它具体使用Spring Boot开发一个小的模块，专业的事<br> 情交给专业的模块，一个模块专注于一件事情， 强调的是一个个的个体，每个个体完成具体的事情</p>
-<h2 id="2、微服务架构"><a href="#2、微服务架构" class="headerlink" title="2、微服务架构"></a>2、微服务架构</h2><p>​     微服务架构，首先是一个架构风格， 在这种理论的指导下，让单一应用程序划分为一组小的服务，服务之间相互 协调配合，为用户提供最终的价值，每一个服务独立的运行在一个进程之中，服务和服务之间采用轻量级的通信机制通常使用（基于HTTP协议的RESTful），每一个服务都围绕着具体的业务进行构建，能够独立的部署到生产环境 另外应该尽量避免统一的，集中式的服务管理机制，对于具体的服务而言，应根据上下文，选择适合的语言，工具进行构建    </p>
-<h1 id="三、微服务的技术栈"><a href="#三、微服务的技术栈" class="headerlink" title="三、微服务的技术栈"></a>三、微服务的技术栈</h1><table>
+<h2 id="2、微服务架构"><a href="#2、微服务架构" class="headerlink" title="2、微服务架构"></a>2、微服务架构</h2><p>​     微服务架构，首先是一个架构风格， 在这种理论的指导下，让单一应用程序划分为一组小的服务，服务之间相互 协调配合，为用户提供最终的价值，每一个服务独立的运行在一个进程之中，服务和服务之间采用轻量级的通信机制通常使用（基于HTTP协议的RESTful），每一个服务都围绕着具体的业务进行构建，能够独立的部署到生产环境 另外应该尽量避免统一的，集中式的服务管理机制，对于具体的服务而言，应根据上下文，选择适合的语言，工具进行构建</p>
+<h1 id="三微服务和SOA的关系"><a href="#三微服务和SOA的关系" class="headerlink" title="三微服务和SOA的关系"></a>三微服务和SOA的关系</h1><p>SOA即面向服务的架构，SOA是根据企业服务总线（ESB）模式来整合集成大量单一庞大的系统，微服务可以说是SOA的一种实现，将复杂的业务组件化。但它比ESB实现的SOA更加的轻便敏捷和简单。</p>
+<h1 id="四、微服务的技术栈"><a href="#四、微服务的技术栈" class="headerlink" title="四、微服务的技术栈"></a>四、微服务的技术栈</h1><table>
 <thead>
 <tr>
 <th>微服务条目</th>
@@ -252,6 +255,10 @@
 </tr>
 </tbody>
 </table>
+<p>笔者本意： 这篇文章只是大概的讲解了微服务的概念、在之后的博文中、我会详细的写出微服务各种技术的落地实现。</p>
+<p>例如： </p>
+<p>1、Spring Cloud的体系</p>
+<p>2、Dubbo + zookeeper的体系</p>
 
       
 
@@ -398,7 +405,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、什么是微服务"><span class="toc-number">1.</span> <span class="toc-text">一、什么是微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1）马丁福勒"><span class="toc-number">1.1.</span> <span class="toc-text">1）马丁福勒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2）-我对微服务的理解"><span class="toc-number">1.2.</span> <span class="toc-text">2） 我对微服务的理解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、微服务和微服务架构"><span class="toc-number">2.</span> <span class="toc-text">二、微服务和微服务架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、微服务"><span class="toc-number">2.1.</span> <span class="toc-text">1、微服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、微服务架构"><span class="toc-number">2.2.</span> <span class="toc-text">2、微服务架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、微服务的技术栈"><span class="toc-number">3.</span> <span class="toc-text">三、微服务的技术栈</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、什么是微服务"><span class="toc-number">1.</span> <span class="toc-text">一、什么是微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1）马丁福勒"><span class="toc-number">1.1.</span> <span class="toc-text">1）马丁福勒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2）-我对微服务的理解"><span class="toc-number">1.2.</span> <span class="toc-text">2） 我对微服务的理解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、微服务和微服务架构"><span class="toc-number">2.</span> <span class="toc-text">二、微服务和微服务架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、微服务"><span class="toc-number">2.1.</span> <span class="toc-text">1、微服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、微服务架构"><span class="toc-number">2.2.</span> <span class="toc-text">2、微服务架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三微服务和SOA的关系"><span class="toc-number">3.</span> <span class="toc-text">三微服务和SOA的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、微服务的技术栈"><span class="toc-number">4.</span> <span class="toc-text">四、微服务的技术栈</span></a></li></ol>
                     </div>
                 </span>
             </div>
