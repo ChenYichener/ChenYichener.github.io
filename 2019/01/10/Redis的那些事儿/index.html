@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c86339b780cf.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c8643888662e.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c86438837f56.png">
-<meta property="og:updated_time" content="2019-03-11T11:39:43.699Z">
+<meta property="og:updated_time" content="2019-03-11T11:44:18.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis的那些事儿">
 <meta name="twitter:description" content="一、NoSQL概述NoSQL是Not only SQL的缩写，大意为“不只是SQL”，说明这项技术是传统关系型数据库的补充而非替代">
@@ -200,7 +200,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-server文件路径   redis.conf文件路径</span><br><span class="line"></span><br><span class="line">实例： /usr/local/redis/bin/redis-server      /usr/local/redis/redis.conf</span><br></pre></td></tr></table></figure>
 <h4 id="7、客户端登录"><a href="#7、客户端登录" class="headerlink" title="7、客户端登录"></a>7、客户端登录</h4><p>进入到安装redis的bin目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli                      进入redis客户端</span><br></pre></td></tr></table></figure>
-<h1 id="三、Redis常用的五种数据结构"><a href="#三、Redis常用的五种数据结构" class="headerlink" title="三、Redis常用的五种数据结构"></a>三、Redis常用的五种数据结构</h1><h2 id="1-总体结构"><a href="#1-总体结构" class="headerlink" title="1) 总体结构"></a>1) 总体结构</h2><table><br>    <tr><br>        <td rowspan="6">KEY</td><br>        <td>VALUE</td><br>    </tr><br>    <tr><br>        <td>string</td><br>        </tr><br>    <tr><br>        <td>list</td><br>    </tr><br>    <tr><br>        <td>set</td><br>    </tr><br>    <tr><br>        <td>hash</td><br>    </tr><br>    <tr><br>        <td>zset</td><br>    </tr><br></table>
+<h1 id="三、Redis常用的五种数据结构"><a href="#三、Redis常用的五种数据结构" class="headerlink" title="三、Redis常用的五种数据结构"></a>三、Redis常用的五种数据结构</h1><h2 id="1、总体结构"><a href="#1、总体结构" class="headerlink" title="1、总体结构"></a>1、总体结构</h2><table><br>    <tr><br>        <td rowspan="6">KEY</td><br>        <td>VALUE</td><br>    </tr><br>    <tr><br>        <td>string</td><br>        </tr><br>    <tr><br>        <td>list</td><br>    </tr><br>    <tr><br>        <td>set</td><br>    </tr><br>    <tr><br>        <td>hash</td><br>    </tr><br>    <tr><br>        <td>zset</td><br>    </tr><br></table>
 
 <p>Redis中的数据，总体上是键值对，不同数据类型指的是键值对中值的类型。</p>
 <h2 id="2、string类型"><a href="#2、string类型" class="headerlink" title="2、string类型"></a>2、string类型</h2><p>Redis中最基本的类型，它是key对应的一个单一值。二进制安全，不必担心由于编码等问题导致二进制数据变化。所以redis的string可以包含任何数据，比如jpg图片或者序列化的对象。Redis中一个字符串值的最大容量是512M。</p>
