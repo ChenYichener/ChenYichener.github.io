@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JUC-高并发容器 | Welcome</title>
+  <title>单例的四种实现方式 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="陈一臣的个人博客">
-<meta name="keywords" content="陈一臣">
+  <meta name="description" content="一、什么是单例模式？1、定义Singleton模式要求一个类有且仅有一个实例，并且提供了一个全局的访问点。这就提出了一个问题：如何绕过常规的构造器，提供一种机制来保证一个类只有一个实例？客户程序在调用某一个类时，它是不会考虑这个类是否只能有一个实例等问题的，所以，这应该是类设计者的责任，而不是类使用者的责任。 从另一个角度来说，Singleton模式其实也是一种职责型模式。因为我们创建了一个对象，">
+<meta name="keywords" content="单例设计模式,设计模式,Singleton">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JUC-高并发容器">
-<meta property="og:url" content="http://yoursite.com/2019/03/11/JUC-高并发容器/index.html">
+<meta property="og:title" content="单例的四种实现方式">
+<meta property="og:url" content="http://yoursite.com/2019/02/11/单例的四种实现方式/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="陈一臣的个人博客">
+<meta property="og:description" content="一、什么是单例模式？1、定义Singleton模式要求一个类有且仅有一个实例，并且提供了一个全局的访问点。这就提出了一个问题：如何绕过常规的构造器，提供一种机制来保证一个类只有一个实例？客户程序在调用某一个类时，它是不会考虑这个类是否只能有一个实例等问题的，所以，这应该是类设计者的责任，而不是类使用者的责任。 从另一个角度来说，Singleton模式其实也是一种职责型模式。因为我们创建了一个对象，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-11T12:46:28.326Z">
+<meta property="og:updated_time" content="2019-03-12T01:01:39.335Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JUC-高并发容器">
-<meta name="twitter:description" content="陈一臣的个人博客">
+<meta name="twitter:title" content="单例的四种实现方式">
+<meta name="twitter:description" content="一、什么是单例模式？1、定义Singleton模式要求一个类有且仅有一个实例，并且提供了一个全局的访问点。这就提出了一个问题：如何绕过常规的构造器，提供一种机制来保证一个类只有一个实例？客户程序在调用某一个类时，它是不会考虑这个类是否只能有一个实例等问题的，所以，这应该是类设计者的责任，而不是类使用者的责任。 从另一个角度来说，Singleton模式其实也是一种职责型模式。因为我们创建了一个对象，">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -155,27 +155,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JUC-高并发容器" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-单例的四种实现方式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JUC-高并发容器
+      单例的四种实现方式
     </h1>
   
 
         
-        <a href="/2019/03/11/JUC-高并发容器/" class="archive-article-date">
-  	<time datetime="2019-03-11T12:46:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
+        <a href="/2019/02/11/单例的四种实现方式/" class="archive-article-date">
+  	<time datetime="2019-02-11T12:46:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="一、什么是单例模式？"><a href="#一、什么是单例模式？" class="headerlink" title="一、什么是单例模式？"></a>一、什么是单例模式？</h1><h2 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h2><p>Singleton模式要求一个类有且仅有一个实例，并且提供了一个全局的访问点。这就提出了一个问题：如何绕过常规的构造器，提供一种机制来保证一个类只有一个实例？客户程序在调用某一个类时，它是不会考虑这个类是否只能有一个实例等问题的，所以，这应该是类设计者的责任，而不是类使用者的责任。</p>
+<p>从另一个角度来说，Singleton模式其实也是一种职责型模式。因为我们创建了一个对象，这个对象扮演了独一无二的角色，在这个单独的对象实例中，它集中了它所属类的所有权力，同时它也肩负了行使这种权力的职责</p>
+<h2 id="2、单例模式的优点"><a href="#2、单例模式的优点" class="headerlink" title="2、单例模式的优点"></a>2、单例模式的优点</h2><p>1）在单例模式中，活动的单例只有一个实例，对单例类的所有实例化得到的都是相同的一个实例。这样就 防止其它对象对自己的实例化，确保所有的对象都访问一个实例 </p>
+<p>2）单例模式具有一定的伸缩性，类自己来控制实例化进程，类就在改变实例化进程上有相应的伸缩性。 </p>
+<p>3）提供了对唯一实例的受控访问。 </p>
+<p>4）由于在系统内存中只存在一个对象，因此可以 节约系统资源，当 需要频繁创建和销毁的对象时单例模式   无疑可以提高系统的性能。</p>
+<p>5）允许可变数目的实例。</p>
+<p>6）避免对共享资源的多重占用。</p>
+<h2 id="3、单例模式的应用场景"><a href="#3、单例模式的应用场景" class="headerlink" title="3、单例模式的应用场景"></a>3、单例模式的应用场景</h2><p>单例模式只允许创建一个对象，因此节省内存，加快对象访问速度，因此对象需要被公用的场合适合使用，如多个模块使用同一个数据源连接对象等等。如： </p>
+<p>1）需要频繁实例化然后销毁的对象。 </p>
+<p>2）创建对象时耗时过多或者耗资源过多，但又经常用到的对象。</p>
+<p>3）有状态的工具类对象。 </p>
+<p>4）频繁访问数据库或文件的对象。 </p>
+<p>以下都是单例模式的经典使用场景：</p>
+<p>1）资源共享的情况下，避免由于资源操作时导致的性能或损耗等。如上述中的日志文件，应用配置。</p>
+<p>2）控制资源的情况下，方便资源之间的互相通信。如线程池等</p>
+<h1 id="二、单例的四种实现方式"><a href="#二、单例的四种实现方式" class="headerlink" title="二、单例的四种实现方式"></a>二、单例的四种实现方式</h1><h2 id="1、饿汉式"><a href="#1、饿汉式" class="headerlink" title="1、饿汉式"></a>1、饿汉式</h2><p>饿汉式： 在类装载的时候就急速的初始化，饿汉式是线程安全的、 但是没有延迟加载<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 饿汉式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton_one</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1、私有化构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton_one</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2、初始化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton_one instance = <span class="keyword">new</span> Singleton_one();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton_one <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、懒汉式（同步方法）"><a href="#2、懒汉式（同步方法）" class="headerlink" title="2、懒汉式（同步方法）"></a>2、懒汉式（同步方法）</h2><p>单纯的懒汉式是存在线程安全问题的、需要我们使用同步策略<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉式（同步方法）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton_two</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1、私有化构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton_two</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton_two instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Singleton_two <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton_two();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3、懒汉式（Dubbo-Check）"><a href="#3、懒汉式（Dubbo-Check）" class="headerlink" title="3、懒汉式（Dubbo Check）"></a>3、懒汉式（Dubbo Check）</h2><p>单纯的懒汉式是存在线程安全问题的、需要我们使用同步策略、这里使用了双重校验<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉式（Double Check）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton_three</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有化构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton_three</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton_three instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton_three <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton_three.class) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton_three();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4、静态内部类"><a href="#4、静态内部类" class="headerlink" title="4、静态内部类"></a>4、静态内部类</h2><h3 id="1）静态内部类的加载时机"><a href="#1）静态内部类的加载时机" class="headerlink" title="1）静态内部类的加载时机"></a>1）静态内部类的加载时机</h3><ol>
+<li>外部类初次加载，会初始化静态变量、静态代码块、静态方法，但不会加载内部类和静态内部类。</li>
+<li>实例化外部类，调用外部类的静态方法、静态变量，则外部类必须先进行加载，但只加载一次。</li>
+<li>直接调用静态内部类时，外部类不会加载。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 内部类实现单例模式</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 既不用加锁 、也能实现懒加载</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 外部类初次加载的时候不会加载内部类和静态内部类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton_four</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有化构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton_four</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">static</span> Singleton_four instance = <span class="keyword">new</span> Singleton_four();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton_four <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Inner.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -204,6 +228,25 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">单例设计模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Singleton</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -254,7 +297,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/11/JUC-高并发容器/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/11/单例的四种实现方式/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -268,18 +311,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/11/从字节码文件来看i-操作/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/03/11/从微服务到Spring Cloud/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          从字节码文件来看i++操作
+          从微服务到Spring Cloud
         
       </div>
     </a>
   
   
-    <a href="/2019/03/11/volatile-关键字/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">volatile 关键字</div>
+    <a href="/2019/01/30/什么是微服务/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">什么是微服务</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -310,8 +353,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2019/03/11/JUC-高并发容器/", 
-    sourceId: "JUC-高并发容器",
+    url: "http://yoursite.com/2019/02/11/单例的四种实现方式/", 
+    sourceId: "单例的四种实现方式",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
