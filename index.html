@@ -156,6 +156,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JVM指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/19/JVM指南/">JVM指南</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/19/JVM指南/" class="archive-article-date">
+  	<time datetime="2019-03-19T02:33:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="JVM的位置"><a href="#JVM的位置" class="headerlink" title="JVM的位置"></a>JVM的位置</h3><p>JVM运行在操作系统之上， 和硬件无直接的交互。</p>
+<p>图示：<br><img src="/JVM/20190319092819724.png" alt></p>
+<h3 id="JVM体系结构图"><a href="#JVM体系结构图" class="headerlink" title="JVM体系结构图"></a>JVM体系结构图</h3><p><img src="/JVM/20190319093146549.png" alt></p>
+<p>上图我们清晰的看到的JVM的体系结构图， 针对不同的区域下面会进行详细的讲解。这里需要提到的是， 我们常说的JVM优化， 通常就是优化Heap和Method Area，优化的所有线程共享的数据。</p>
+<h2 id="ClassLoader（类装载器）"><a href="#ClassLoader（类装载器）" class="headerlink" title="ClassLoader（类装载器）"></a>ClassLoader（类装载器）</h2><h3 id="什么的类装载器"><a href="#什么的类装载器" class="headerlink" title="什么的类装载器"></a>什么的类装载器</h3><p>我们一句话简单的解释： 我们都知道使用<strong>java c</strong> 命令编译之后会得到一个后缀名是<strong>.class</strong>的字节码文件, 然后使用<strong>java</strong>命令可以执行这个字节码文件中的内容，那么JVM需要执行这个字节码文件的前提是什么呢？，是不是首选要将<strong>.class</strong>加载进JVM呢？ </p>
+<p>这里就引出了<strong>类装载器</strong>的概念和作用了，类似一个快递员的职能。注意， 类加载器只负责Class文件的加载， 至于它的执行则由Execution Engine来决定</p>
+<h3 id="虚拟机的类加载机制"><a href="#虚拟机的类加载机制" class="headerlink" title="虚拟机的类加载机制"></a>虚拟机的类加载机制</h3><p>虚拟机把描述类的数据从Class文件加载到内存， 并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型， 这就是虚拟机的类加载机制</p>
+<h3 id="类加载器的种类"><a href="#类加载器的种类" class="headerlink" title="类加载器的种类"></a>类加载器的种类</h3><h4 id="虚拟机自带的类装载器"><a href="#虚拟机自带的类装载器" class="headerlink" title="虚拟机自带的类装载器"></a>虚拟机自带的类装载器</h4><h6 id="启动类加载器（Bootstrap）C"><a href="#启动类加载器（Bootstrap）C" class="headerlink" title="启动类加载器（Bootstrap）C++"></a>启动类加载器（Bootstrap）C++</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这个类加载器负责将存放在$JAVA_HOME/lib目录中， 或者被 -Xbootclasspath参数所指定的路径中的，</span><br><span class="line">并且是虚拟机识别的(仅按照文件名识别， 如rt.jar名字不符合的类库，即使放在lib目录中也是不会被加</span><br><span class="line">载）类库加载到虚拟机内存中。启动类加载器无法被Java程序直接引用，用户在编写自定类加载器时，如果</span><br><span class="line">需要把加载请求委派给引导类加载器，那么直接使用<span class="keyword">null</span>代替即可。</span><br></pre></td></tr></table></figure>
+<h6 id="扩展类加载器（Extension）Java"><a href="#扩展类加载器（Extension）Java" class="headerlink" title="扩展类加载器（Extension）Java"></a>扩展类加载器（Extension）Java</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">扩展类加载器(Extension ClassLoader)： 这个加载器由sun.misc.Launcher$ExtClassLoader实现，它</span><br><span class="line">负责加载$JAVA_HOME/lib/ext目录中的，或者被java.ext.dirs系统变量所制定的路径中的所有类库，开</span><br><span class="line">发者可以直接使用扩展类加载器</span><br></pre></td></tr></table></figure>
+<h6 id="应用程序类加载器（App）Java"><a href="#应用程序类加载器（App）Java" class="headerlink" title="应用程序类加载器（App）Java"></a>应用程序类加载器（App）Java</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">应用程序类加载器(Application ClassLoader)：这个类加载器由sun.misc.Launcher$AppClassLoader</span><br><span class="line">实现， 由于这个类加载器是ClassLoader中的getSystemClassLoader()方法的返回值， 所以一般也称为</span><br><span class="line">系统类加载器。它负责加载用户类路径(classpath)上所指定的类库，开发者可以直接使用这个类加载器，</span><br><span class="line">如果应用程序中没有自定义过类加载器，一般情况这个就是程序中默认的类加载器</span><br></pre></td></tr></table></figure>
+<p>也叫系统类加载器，加载当前应用的classpath的所有类</p>
+<h4 id="用户自定义的类装载器"><a href="#用户自定义的类装载器" class="headerlink" title="用户自定义的类装载器"></a>用户自定义的类装载器</h4><p>用户自定义加载器  Java.lang.ClassLoader的子类，用户可以定制类的加载方式</p>
+<h3 id="类加载器的层次关系"><a href="#类加载器的层次关系" class="headerlink" title="类加载器的层次关系"></a>类加载器的层次关系</h3><p><img src="/JVM/20190319102708025.png" alt></p>
+<h3 id="Java代码的体现"><a href="#Java代码的体现" class="headerlink" title="Java代码的体现"></a>Java代码的体现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Object obj = <span class="keyword">new</span> Object();</span><br><span class="line">        Inner inner = <span class="keyword">new</span> ClassLoaderTest().new Inner();</span><br><span class="line"></span><br><span class="line">        System.out.println(obj.getClass().getClassLoader());</span><br><span class="line">        System.out.println(inner.getClass().getClassLoader().getParent().getParent()); <span class="comment">// null</span></span><br><span class="line">  System.out.println(inner.getClass().getClassLoader().getParent());  <span class="comment">// ExtClassLoader</span></span><br><span class="line">  System.out.println(inner.getClass().getClassLoader());              <span class="comment">// AppClassLoader</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><p>当AppClassLoader加载一个class时，它首先不会自己去尝试加载这个类，而是把类加载请求委派给父类加载器ExtClassLoader去完成。</p>
+<p>当ExtClassLoader加载一个class时，它首先也不会自己去尝试加载这个类，而是把类加载请求委派给BootStrapClassLoader去完成。</p>
+<p>如果BootStrapClassLoader加载失败（例如在$JAVA_HOME/jre/lib里未查找到该class），会使用ExtClassLoader来尝试加载；</p>
+<p>若ExtClassLoader也加载失败，则会使用AppClassLoader来加载，如果AppClassLoader也加载失败，则会报出异常ClassNotFoundException。</p>
+<h3 id="破坏双亲委派模型"><a href="#破坏双亲委派模型" class="headerlink" title="破坏双亲委派模型"></a>破坏双亲委派模型</h3><h2 id="native"><a href="#native" class="headerlink" title="native"></a>native</h2><h2 id="Method-Area-（方法区）"><a href="#Method-Area-（方法区）" class="headerlink" title="Method Area （方法区）"></a>Method Area （方法区）</h2><p><strong>1：方法区是线程共享的，通常用来保存装载的类的元结构信息。</strong></p>
+<p>比如：运行时常量池+静态变量+常量+字段+方法字节码+在类/实例/接口初始化用到的特殊方法等。</p>
+<p><strong>2：通常和永久区关联在一起(Java7之前)，但具体的跟JVM的实现和版本有关。</strong></p>
+<p><strong><span style="color:red">Tips: 实例变量存在堆内存中， 和方法无关。</span> </strong></p>
+<h2 id="Stack-（栈）"><a href="#Stack-（栈）" class="headerlink" title="Stack （栈）"></a>Stack （栈）</h2><h2 id="Heap-（堆）"><a href="#Heap-（堆）" class="headerlink" title="Heap （堆）"></a>Heap （堆）</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Java虚拟机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/19/JVM指南/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-RESTful-干货" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -906,6 +1005,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
