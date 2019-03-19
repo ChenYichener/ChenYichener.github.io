@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>JVM指南 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="概述JVM的位置JVM运行在操作系统之上， 和硬件无直接的交互。">
+  <meta name="description" content="JVM概述JVM的位置JVM运行在操作系统之上， 和硬件无直接的交互。  JVM体系结构图 &amp;nbsp;&amp;nbsp;上图我们清晰的看到的JVM的体系结构图， 针对不同的区域下面会进行详细的讲解。这里需要提到的是， 我们常说的JVM优化， 通常就是优化Heap和Method Area，优化的所有线程共享的数据。 ClassLoader（类装载器）什么的类装载器&amp;nbsp;&amp;nbsp;我们一句话简单的">
 <meta name="keywords" content="JVM,Java虚拟机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM指南">
 <meta property="og:url" content="http://yoursite.com/2019/03/19/JVM指南/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="概述JVM的位置JVM运行在操作系统之上， 和硬件无直接的交互。">
+<meta property="og:description" content="JVM概述JVM的位置JVM运行在操作系统之上， 和硬件无直接的交互。  JVM体系结构图 &amp;nbsp;&amp;nbsp;上图我们清晰的看到的JVM的体系结构图， 针对不同的区域下面会进行详细的讲解。这里需要提到的是， 我们常说的JVM优化， 通常就是优化Heap和Method Area，优化的所有线程共享的数据。 ClassLoader（类装载器）什么的类装载器&amp;nbsp;&amp;nbsp;我们一句话简单的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/JVM/20190319092819724.png">
-<meta property="og:image" content="https://i.loli.net/2019/03/19/5c905b2b953a8.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/19/5c90611d4d637.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/19/5c9060ae24f03.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/19/5c905b2c11fe4.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/19/5c905b2baa6d0.png">
-<meta property="og:updated_time" content="2019-03-19T03:02:53.292Z">
+<meta property="og:updated_time" content="2019-03-19T03:28:23.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM指南">
-<meta name="twitter:description" content="概述JVM的位置JVM运行在操作系统之上， 和硬件无直接的交互。">
-<meta name="twitter:image" content="http://yoursite.com/JVM/20190319092819724.png">
+<meta name="twitter:description" content="JVM概述JVM的位置JVM运行在操作系统之上， 和硬件无直接的交互。  JVM体系结构图 &amp;nbsp;&amp;nbsp;上图我们清晰的看到的JVM的体系结构图， 针对不同的区域下面会进行详细的讲解。这里需要提到的是， 我们常说的JVM优化， 通常就是优化Heap和Method Area，优化的所有线程共享的数据。 ClassLoader（类装载器）什么的类装载器&amp;nbsp;&amp;nbsp;我们一句话简单的">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/19/5c90611d4d637.png">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -180,10 +180,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="JVM的位置"><a href="#JVM的位置" class="headerlink" title="JVM的位置"></a>JVM的位置</h3><p>JVM运行在操作系统之上， 和硬件无直接的交互。</p>
-<a id="more"></a>
-<p>图示：<br><img src="/JVM/20190319092819724.png" alt></p>
-<h3 id="JVM体系结构图"><a href="#JVM体系结构图" class="headerlink" title="JVM体系结构图"></a>JVM体系结构图</h3><p><img src="https://i.loli.net/2019/03/19/5c905b2b953a8.png" alt></p>
+        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="JVM的位置"><a href="#JVM的位置" class="headerlink" title="JVM的位置"></a>JVM的位置</h3><p>JVM运行在操作系统之上， 和硬件无直接的交互。</p>
+<p><img src="https://i.loli.net/2019/03/19/5c90611d4d637.png" alt></p>
+<h3 id="JVM体系结构图"><a href="#JVM体系结构图" class="headerlink" title="JVM体系结构图"></a>JVM体系结构图</h3><p><img src="https://i.loli.net/2019/03/19/5c9060ae24f03.png" alt></p>
 <p>&nbsp;&nbsp;上图我们清晰的看到的JVM的体系结构图， 针对不同的区域下面会进行详细的讲解。这里需要提到的是， 我们常说的JVM优化， 通常就是优化Heap和Method Area，优化的所有线程共享的数据。</p>
 <h2 id="ClassLoader（类装载器）"><a href="#ClassLoader（类装载器）" class="headerlink" title="ClassLoader（类装载器）"></a>ClassLoader（类装载器）</h2><h3 id="什么的类装载器"><a href="#什么的类装载器" class="headerlink" title="什么的类装载器"></a>什么的类装载器</h3><p>&nbsp;&nbsp;我们一句话简单的解释： 我们都知道使用<strong>java c</strong> 命令编译之后会得到一个后缀名是<strong>.class</strong>的字节码文件, 然后使用<strong>java</strong>命令可以执行这个字节码文件中的内容，那么JVM需要执行这个字节码文件的前提是什么呢？，是不是首选要将<strong>.class</strong>加载进JVM呢？</p>
 <p>这里就引出了<strong>类装载器</strong>的概念和作用了，类似一个快递员的职能。</p>
@@ -204,7 +203,8 @@
 <p>&nbsp;&nbsp; 目前该方法使用的越来越少了，除非是与硬件有关的应用，比如通过Java程序驱动打印机或者Java系统管理生产设备，在企业级应用中已经比较少见。因为现在的异构领域间的通信很发达，比如可以使用Socket通信，也可以使用WebService等等，不多做介绍。</p>
 <h5 id="Native-Method-Stack-本地方法栈"><a href="#Native-Method-Stack-本地方法栈" class="headerlink" title="Native Method Stack (本地方法栈)"></a>Native Method Stack (本地方法栈)</h5><p>&nbsp;&nbsp;它的具体做法是Native Method Stack中登记native方法，在Execution Engine执行时加载本地方法库。</p>
 <h5 id="Java代码的体现-1"><a href="#Java代码的体现-1" class="headerlink" title="Java代码的体现"></a>Java代码的体现</h5><p>使用java.lang.Thread.start(）方法代码片段为例<br><img src="https://i.loli.net/2019/03/19/5c905b2baa6d0.png" alt></p>
-<h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><h2 id="Method-Area-（方法区）"><a href="#Method-Area-（方法区）" class="headerlink" title="Method Area （方法区）"></a>Method Area （方法区）</h2><p><strong>1：方法区是线程共享的，通常用来保存装载的类的元结构信息。</strong></p>
+<h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><p>每个线程都有一个程序计数器，是线程私有的,就是一个指针，指向方法区中的方法字节码<strong>（用来存储指向下一条指令的地址,也即将要执行的指令代码</strong>，由执行引擎读取下一条指令，是一个非常小的内存空间，几乎可以忽略不记。</p>
+<h2 id="Method-Area-（方法区）"><a href="#Method-Area-（方法区）" class="headerlink" title="Method Area （方法区）"></a>Method Area （方法区）</h2><p><strong>1：方法区是被所有线程共享</strong>，所有字段和方法字节码，以及一些特殊方法如构造函数，接口代码也定义在此， 简单说， 所有定义的方法的信息都保存在该区域， 此区域属于共享区间。</p>
 <p>比如：运行时常量池+静态变量+常量+字段+方法字节码+在类/实例/接口初始化用到的特殊方法等。</p>
 <p><strong>2：通常和永久区关联在一起(Java7之前)，但具体的跟JVM的实现和版本有关。</strong></p>
 <p><strong><span style="color:red">Tips: 实例变量存在堆内存中， 和方法无关。</span> </strong></p>
