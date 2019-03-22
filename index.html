@@ -156,6 +156,188 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MySQL索引篇，性能分析，性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/21/MySQL索引篇，性能分析，性能优化/">MySQL索引篇，性能分析，性能优化</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/21/MySQL索引篇，性能分析，性能优化/" class="archive-article-date">
+  	<time datetime="2019-03-21T07:31:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h1><p>1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构</p>
+<p>2、索引的目的就在于提高查询效率， 可以类比字典</p>
+<p>3、<strong>你可以简单理解为排好序的快速查找的数据结构</strong></p>
+<p><span style="color:red"><strong>索引约等于排序 + 查得快</strong></span></p>
+<h1 id="索引的优势和劣势？"><a href="#索引的优势和劣势？" class="headerlink" title="索引的优势和劣势？"></a>索引的优势和劣势？</h1><h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>1、创建了索引，提高了检索效率，降低的数据库的IO成本<br>2、创建了索引，提高了排序的效率，降低了CPU的消耗</p>
+<h1 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h1><p>1、实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录所以索引也是需要占用磁盘空间的， 虽然索引大大的提高了查询的效率， 同时却会降低更新表的数据， 如对表进行INSERT， UPDATE和DELETE因为更新表时，MySQL不仅仅保存我们的数据， 还要保存我们这条数据索引文件每次添加了索引列的字段， 都会调整因为更新所带来的键值变化后的索引信息。</p>
+<p>2、索引只是提高效率的一个因素， 如果你的MySQL有大数据了的表， 就需要花费时间研究最优秀的索引，或者优化查询的条件    </p>
+<h1 id="MySQL索引的结构"><a href="#MySQL索引的结构" class="headerlink" title="MySQL索引的结构"></a>MySQL索引的结构</h1><p>在Java的范畴，重点讲解BTree索引。</p>
+<h3 id="BTree"><a href="#BTree" class="headerlink" title="BTree"></a>BTree</h3><h4 id="1-BTree索引原理"><a href="#1-BTree索引原理" class="headerlink" title="1) BTree索引原理"></a>1) BTree索引原理</h4><h3 id="2-Hash索引"><a href="#2-Hash索引" class="headerlink" title="2) Hash索引"></a>2) Hash索引</h3><h3 id="3-full-text索引"><a href="#3-full-text索引" class="headerlink" title="3) full text索引"></a>3) full text索引</h3><h3 id="3-R-Tree索引"><a href="#3-R-Tree索引" class="headerlink" title="3) R-Tree索引"></a>3) R-Tree索引</h3><h1 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h1><p>1、单值索引<br>2、唯一索引<br>3、复合索引<br>4、基本语法</p>
+<h1 id="索引的创建方式"><a href="#索引的创建方式" class="headerlink" title="索引的创建方式"></a>索引的创建方式</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建：</span><br><span class="line">	<span class="keyword">CREATE</span> [<span class="keyword">UNIQUE</span>] <span class="keyword">INDEX</span> indexName <span class="keyword">ON</span> tableName(cloumn(<span class="keyword">length</span>));</span><br><span class="line">	<span class="keyword">ALTER</span> tableName <span class="keyword">ADD</span> [<span class="keyword">UNIQUE</span>] [indexName] <span class="keyword">on</span> (cloumn(<span class="keyword">length</span>));</span><br><span class="line">查看</span><br><span class="line">	<span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> tableName\G</span><br></pre></td></tr></table></figure>
+<h1 id="哪些情况需要创建索引"><a href="#哪些情况需要创建索引" class="headerlink" title="哪些情况需要创建索引"></a>哪些情况需要创建索引</h1><p>1.主键自动创建索引<br>2.频繁查询的字段创建索引<br>3.查询中，与其他表关联的字段，外键关系创建索引<br>4.频繁更新的字段不适合创建索引， 因为每次更新不单单更新记录，还更新索引的BTree<br>5.WHERE条件中用不到的字段不创建索引<br>6.单值/组合选问题，who? (在高并发下倾向创建组合索引)<br>7.查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度<br>8.查询中统计或者分组字段    </p>
+<h1 id="哪些情况不要创建索引"><a href="#哪些情况不要创建索引" class="headerlink" title="哪些情况不要创建索引"></a>哪些情况不要创建索引</h1><ol>
+<li>表记录太少</li>
+<li>经常增删改的表<pre><code>why: 提高了查询效率，同时却会降低更新表的速度，如对表进行INSERT，UPDATE和，因为更新表时，             不因更新的表数据，同时还会保存索引文件
+</code></pre></li>
+<li>数据重复且分布平均的表字段， 因此应该只是为最经常查询和最经常排序的数据创建索引注意，如果某个数据列包含许多重复内容，为她建立索引就没有太大实际的效果</li>
+</ol>
+<h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p><strong>一张表的索引最好不要超过5个</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">索引</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MySQL调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/21/MySQL索引篇，性能分析，性能优化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="n-Java中的GC" class="article article-type-n  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/19/Java中的GC/">Java中的GC</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/19/Java中的GC/" class="archive-article-date">
+  	<time datetime="2019-03-19T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h1><h2 id="GC是什么？-分代收集算法"><a href="#GC是什么？-分代收集算法" class="headerlink" title="GC是什么？(分代收集算法)"></a>GC是什么？(分代收集算法)</h2><p>次数上频繁收集Young区</p>
+<p>次数上较少收集Old区</p>
+<p>基本不动Perm区</p>
+<h2 id="GC四大算法"><a href="#GC四大算法" class="headerlink" title="GC四大算法"></a>GC四大算法</h2><h3 id="GC算法总体概述"><a href="#GC算法总体概述" class="headerlink" title="GC算法总体概述"></a>GC算法总体概述</h3><p>JVM在进行GC时， 并非每次都对新生代(Young)、老年代(Old), 永久代(Perm)一起回收， 大部分时候回收的都是指的新生代</p>
+<p>因此GC按照回收的区域又分为两种类型： 一种是普通GC(Minor GC) 一种是全局GC(Major GC  or Full GC)</p>
+<p>普通GC(Minor GC) : 指针对新生代区域的GC<br>全局GC(Major GC or Full GC)： 针对老年代的GC，偶尔伴随对新生代的GC以及对永久代的GC</p>
+<h3 id="4算法"><a href="#4算法" class="headerlink" title="4算法"></a>4算法</h3><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h3 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">垃圾回收机制</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/19/Java中的GC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JVM指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -714,187 +896,10 @@
 
 
   
-    <article id="post-Redis的那些事儿" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/10/Redis的那些事儿/">Redis的那些事儿</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/10/Redis的那些事儿/" class="archive-article-date">
-  	<time datetime="2019-01-10T03:57:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一、从NoSQL说起"><a href="#一、从NoSQL说起" class="headerlink" title="一、从NoSQL说起"></a>一、从NoSQL说起</h1><p>NoSQL是Not only SQL的缩写，大意为“不只是SQL”，说明这项技术是<b><font color="red">传统关系型数据库的补充</font></b>而非替代。在整个NoSQL技术栈中<b><font color="blue">MemCache</font></b>、<b><font color="blue">Redis</font></b>、<b><font color="blue">MongoDB</font></b>被称为NoSQL三剑客。那么时代为什么需要NoSQL数据库呢？我们来做个对比：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>关系型数据库</th>
-<th>NoSQL数据库</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>数据存储位置</td>
-<td>硬盘</td>
-<td>内存</td>
-</tr>
-<tr>
-<td>数据结构</td>
-<td>高度组织化结构化数据</td>
-<td>没有预定义的模式</td>
-</tr>
-<tr>
-<td>数据操作方式</td>
-<td>SQL</td>
-<td>所有数据都是键值对，没有声明性查询语言</td>
-</tr>
-<tr>
-<td>事务控制</td>
-<td>严格的基础事务ACID原则</td>
-<td>CAP定理</td>
-</tr>
-</tbody>
-</table>
-<p>所以NoSQL数据库的最大优势体现为：高性能、高可用性和可伸缩性。</p>
-        
-          <a class="article-more-a" href="/2019/01/10/Redis的那些事儿/#more">查看更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NoSQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">缓存</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/10/Redis的那些事儿/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-动态代理、AOP？" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/02/动态代理、AOP？/">动态代理、AOP？</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/02/动态代理、AOP？/" class="archive-article-date">
-  	<time datetime="2019-01-02T15:59:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一、什么是AOP"><a href="#一、什么是AOP" class="headerlink" title="一、什么是AOP"></a>一、什么是AOP</h1><h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>AOP为Aspect Oriented Programming的缩写，是面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。</p>
-        
-          <a class="article-more-a" href="/2019/01/02/动态代理、AOP？/#more">查看更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/02/动态代理、AOP？/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -986,6 +991,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">索引</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MySQL调优</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">垃圾回收机制</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">GC</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
