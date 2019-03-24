@@ -180,21 +180,9 @@
 <p>2、索引的目的就在于提高查询效率， 可以类比字典</p>
 <p>3、<strong>你可以简单理解为排好序的快速查找的数据结构</strong></p>
 <p><span style="color:red"><strong>索引约等于排序 + 查得快</strong></span></p>
-<h1 id="索引的优势和劣势？"><a href="#索引的优势和劣势？" class="headerlink" title="索引的优势和劣势？"></a>索引的优势和劣势？</h1><h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>1、创建了索引，提高了检索效率，降低的数据库的IO成本<br>2、创建了索引，提高了排序的效率，降低了CPU的消耗</p>
-<h1 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h1><p>1、实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录所以索引也是需要占用磁盘空间的， 虽然索引大大的提高了查询的效率， 同时却会降低更新表的数据， 如对表进行INSERT， UPDATE和DELETE因为更新表时，MySQL不仅仅保存我们的数据， 还要保存我们这条数据索引文件每次添加了索引列的字段， 都会调整因为更新所带来的键值变化后的索引信息。</p>
-<p>2、索引只是提高效率的一个因素， 如果你的MySQL有大数据了的表， 就需要花费时间研究最优秀的索引，或者优化查询的条件    </p>
-<h1 id="MySQL索引的结构"><a href="#MySQL索引的结构" class="headerlink" title="MySQL索引的结构"></a>MySQL索引的结构</h1><p>在Java的范畴，重点讲解BTree索引。</p>
-<h3 id="BTree"><a href="#BTree" class="headerlink" title="BTree"></a>BTree</h3><h4 id="1-BTree索引原理"><a href="#1-BTree索引原理" class="headerlink" title="1) BTree索引原理"></a>1) BTree索引原理</h4><h3 id="2-Hash索引"><a href="#2-Hash索引" class="headerlink" title="2) Hash索引"></a>2) Hash索引</h3><h3 id="3-full-text索引"><a href="#3-full-text索引" class="headerlink" title="3) full text索引"></a>3) full text索引</h3><h3 id="3-R-Tree索引"><a href="#3-R-Tree索引" class="headerlink" title="3) R-Tree索引"></a>3) R-Tree索引</h3><h1 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h1><p>1、单值索引<br>2、唯一索引<br>3、复合索引<br>4、基本语法</p>
-<h1 id="索引的创建方式"><a href="#索引的创建方式" class="headerlink" title="索引的创建方式"></a>索引的创建方式</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建：</span><br><span class="line">	<span class="keyword">CREATE</span> [<span class="keyword">UNIQUE</span>] <span class="keyword">INDEX</span> indexName <span class="keyword">ON</span> tableName(cloumn(<span class="keyword">length</span>));</span><br><span class="line">	<span class="keyword">ALTER</span> tableName <span class="keyword">ADD</span> [<span class="keyword">UNIQUE</span>] [indexName] <span class="keyword">on</span> (cloumn(<span class="keyword">length</span>));</span><br><span class="line">查看</span><br><span class="line">	<span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> tableName\G</span><br></pre></td></tr></table></figure>
-<h1 id="哪些情况需要创建索引"><a href="#哪些情况需要创建索引" class="headerlink" title="哪些情况需要创建索引"></a>哪些情况需要创建索引</h1><p>1.主键自动创建索引<br>2.频繁查询的字段创建索引<br>3.查询中，与其他表关联的字段，外键关系创建索引<br>4.频繁更新的字段不适合创建索引， 因为每次更新不单单更新记录，还更新索引的BTree<br>5.WHERE条件中用不到的字段不创建索引<br>6.单值/组合选问题，who? (在高并发下倾向创建组合索引)<br>7.查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度<br>8.查询中统计或者分组字段    </p>
-<h1 id="哪些情况不要创建索引"><a href="#哪些情况不要创建索引" class="headerlink" title="哪些情况不要创建索引"></a>哪些情况不要创建索引</h1><ol>
-<li>表记录太少</li>
-<li>经常增删改的表<pre><code>why: 提高了查询效率，同时却会降低更新表的速度，如对表进行INSERT，UPDATE和，因为更新表时，             不因更新的表数据，同时还会保存索引文件
-</code></pre></li>
-<li>数据重复且分布平均的表字段， 因此应该只是为最经常查询和最经常排序的数据创建索引注意，如果某个数据列包含许多重复内容，为她建立索引就没有太大实际的效果</li>
-</ol>
-<h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p><strong>一张表的索引最好不要超过5个</strong></p>
-
+        
+          <a class="article-more-a" href="/2019/03/21/MySQL索引篇，性能分析，性能优化/#more">查看更多 >></a>
+        
       
 
       
@@ -1013,14 +1001,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">单例设计模式</a>
               </li>
              
@@ -1030,6 +1010,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Singleton</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
               </li>
              
               <li class="article-tag-list-item">

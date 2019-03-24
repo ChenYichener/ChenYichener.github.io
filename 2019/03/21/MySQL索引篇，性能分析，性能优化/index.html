@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MySQL索引篇，性能分析，性能优化 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快 索引的优势和劣势？优势1、创建了索引，提高了检索效率，降低的数据库的IO成本2、创建了索引，提高了排序的效率，降低了CPU的消耗 劣势1、实际上索引也是一张表，该表保存了主键与索引字段，并指向">
+  <meta name="description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快">
 <meta name="keywords" content="MySQL,索引,MySQL调优">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL索引篇，性能分析，性能优化">
 <meta property="og:url" content="http://yoursite.com/2019/03/21/MySQL索引篇，性能分析，性能优化/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快 索引的优势和劣势？优势1、创建了索引，提高了检索效率，降低的数据库的IO成本2、创建了索引，提高了排序的效率，降低了CPU的消耗 劣势1、实际上索引也是一张表，该表保存了主键与索引字段，并指向">
+<meta property="og:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-21T08:00:37.245Z">
+<meta property="og:updated_time" content="2019-03-24T12:46:17.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL索引篇，性能分析，性能优化">
-<meta name="twitter:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快 索引的优势和劣势？优势1、创建了索引，提高了检索效率，降低的数据库的IO成本2、创建了索引，提高了排序的效率，降低了CPU的消耗 劣势1、实际上索引也是一张表，该表保存了主键与索引字段，并指向">
+<meta name="twitter:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -179,6 +179,7 @@
 <p>2、索引的目的就在于提高查询效率， 可以类比字典</p>
 <p>3、<strong>你可以简单理解为排好序的快速查找的数据结构</strong></p>
 <p><span style="color:red"><strong>索引约等于排序 + 查得快</strong></span></p>
+<a id="more"></a>
 <h1 id="索引的优势和劣势？"><a href="#索引的优势和劣势？" class="headerlink" title="索引的优势和劣势？"></a>索引的优势和劣势？</h1><h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>1、创建了索引，提高了检索效率，降低的数据库的IO成本<br>2、创建了索引，提高了排序的效率，降低了CPU的消耗</p>
 <h1 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h1><p>1、实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录所以索引也是需要占用磁盘空间的， 虽然索引大大的提高了查询的效率， 同时却会降低更新表的数据， 如对表进行INSERT， UPDATE和DELETE因为更新表时，MySQL不仅仅保存我们的数据， 还要保存我们这条数据索引文件每次添加了索引列的字段， 都会调整因为更新所带来的键值变化后的索引信息。</p>
 <p>2、索引只是提高效率的一个因素， 如果你的MySQL有大数据了的表， 就需要花费时间研究最优秀的索引，或者优化查询的条件    </p>
@@ -193,7 +194,7 @@
 <li>数据重复且分布平均的表字段， 因此应该只是为最经常查询和最经常排序的数据创建索引注意，如果某个数据列包含许多重复内容，为她建立索引就没有太大实际的效果</li>
 </ol>
 <h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p><strong>一张表的索引最好不要超过5个</strong></p>
-
+<h1 id="EXPLAIN关键字"><a href="#EXPLAIN关键字" class="headerlink" title="EXPLAIN关键字"></a>EXPLAIN关键字</h1>
       
 
       
@@ -464,14 +465,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">单例设计模式</a>
               </li>
              
@@ -481,6 +474,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Singleton</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
               </li>
              
               <li class="article-tag-list-item">
