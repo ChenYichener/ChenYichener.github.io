@@ -156,6 +156,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-三-MySQL调优之-慢查询日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/三-MySQL调优之-慢查询日志/">(三)MySQL调优之-慢查询日志</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/27/三-MySQL调优之-慢查询日志/" class="archive-article-date">
+  	<time datetime="2019-03-27T12:39:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><p>1、MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。</p>
+        
+          <a class="article-more-a" href="/2019/03/27/三-MySQL调优之-慢查询日志/#more">查看更多 >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-- MySQL -- MySQL调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/27/三-MySQL调优之-慢查询日志/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-二-MySQL调优之-EXPLAIN关键字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -176,7 +252,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="索引优化分析："><a href="#索引优化分析：" class="headerlink" title="索引优化分析："></a>索引优化分析：</h1><h2 id="性能分析："><a href="#性能分析：" class="headerlink" title="性能分析："></a>性能分析：</h2><h3 id="EXPLAIN关键字是什么？"><a href="#EXPLAIN关键字是什么？" class="headerlink" title="EXPLAIN关键字是什么？"></a>EXPLAIN关键字是什么？</h3><p>1、简单说：查询执行计划<br>2、使用EXPLAIN关键字可以模拟优化器执行SQL查询于， 从而知道MySQL是如何处理你的SQL语句的<br>分析你的查询语句或是表结构的性能瓶颈</p>
+        <h1 id="索引优化分析："><a href="#索引优化分析：" class="headerlink" title="索引优化分析："></a>索引优化分析：</h1><h2 id="性能分析："><a href="#性能分析：" class="headerlink" title="性能分析："></a>性能分析：</h2><h3 id="EXPLAIN关键字是什么？"><a href="#EXPLAIN关键字是什么？" class="headerlink" title="EXPLAIN关键字是什么？"></a>EXPLAIN关键字是什么？</h3><p>1、简单说：查询执行计划<br>2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是<br>如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈</p>
         
           <a class="article-more-a" href="/2019/03/24/二-MySQL调优之-EXPLAIN关键字/#more">查看更多 >></a>
         
@@ -804,90 +880,6 @@
 
 
   
-    <article id="post-单例的四种实现方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/11/单例的四种实现方式/">单例的四种实现方式</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/11/单例的四种实现方式/" class="archive-article-date">
-  	<time datetime="2019-02-11T12:46:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一、什么是单例模式？"><a href="#一、什么是单例模式？" class="headerlink" title="一、什么是单例模式？"></a>一、什么是单例模式？</h1><h2 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h2><p>Singleton模式要求一个类有且仅有一个实例，并且提供了一个全局的访问点。这就提出了一个问题：如何绕过常规的构造器，提供一种机制来保证一个类只有一个实例？客户程序在调用某一个类时，它是不会考虑这个类是否只能有一个实例等问题的，所以，这应该是类设计者的责任，而不是类使用者的责任。</p>
-        
-          <a class="article-more-a" href="/2019/02/11/单例的四种实现方式/#more">查看更多 >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">单例设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Singleton</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/11/单例的四种实现方式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -993,6 +985,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -1002,6 +1002,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MySQL调优</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">-- MySQL -- MySQL调优</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1030,14 +1034,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Singleton</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
               </li>
              
               <li class="article-tag-list-item">

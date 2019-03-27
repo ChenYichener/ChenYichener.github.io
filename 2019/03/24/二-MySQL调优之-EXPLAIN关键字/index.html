@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>(二)MySQL调优之-EXPLAIN关键字 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询于， 从而知道MySQL是如何处理你的SQL语句的分析你的查询语句或是表结构的性能瓶颈">
+  <meta name="description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈">
 <meta name="keywords" content="MySQL调优,MySQL性能分析,EXPLAIN关键字">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(二)MySQL调优之-EXPLAIN关键字">
 <meta property="og:url" content="http://yoursite.com/2019/03/24/二-MySQL调优之-EXPLAIN关键字/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询于， 从而知道MySQL是如何处理你的SQL语句的分析你的查询语句或是表结构的性能瓶颈">
+<meta property="og:description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/03/24/5c977e64bf500.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/24/5c9781973d286.png">
-<meta property="og:updated_time" content="2019-03-24T14:54:46.530Z">
+<meta property="og:updated_time" content="2019-03-27T07:45:19.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(二)MySQL调优之-EXPLAIN关键字">
-<meta name="twitter:description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询于， 从而知道MySQL是如何处理你的SQL语句的分析你的查询语句或是表结构的性能瓶颈">
+<meta name="twitter:description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈">
 <meta name="twitter:image" content="https://i.loli.net/2019/03/24/5c977e64bf500.png">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
@@ -178,7 +178,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="索引优化分析："><a href="#索引优化分析：" class="headerlink" title="索引优化分析："></a>索引优化分析：</h1><h2 id="性能分析："><a href="#性能分析：" class="headerlink" title="性能分析："></a>性能分析：</h2><h3 id="EXPLAIN关键字是什么？"><a href="#EXPLAIN关键字是什么？" class="headerlink" title="EXPLAIN关键字是什么？"></a>EXPLAIN关键字是什么？</h3><p>1、简单说：查询执行计划<br>2、使用EXPLAIN关键字可以模拟优化器执行SQL查询于， 从而知道MySQL是如何处理你的SQL语句的<br>分析你的查询语句或是表结构的性能瓶颈</p>
+        <h1 id="索引优化分析："><a href="#索引优化分析：" class="headerlink" title="索引优化分析："></a>索引优化分析：</h1><h2 id="性能分析："><a href="#性能分析：" class="headerlink" title="性能分析："></a>性能分析：</h2><h3 id="EXPLAIN关键字是什么？"><a href="#EXPLAIN关键字是什么？" class="headerlink" title="EXPLAIN关键字是什么？"></a>EXPLAIN关键字是什么？</h3><p>1、简单说：查询执行计划<br>2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是<br>如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈</p>
 <a id="more"></a>
 <h3 id="EXPLAIN关键字如何使用？"><a href="#EXPLAIN关键字如何使用？" class="headerlink" title="EXPLAIN关键字如何使用？"></a>EXPLAIN关键字如何使用？</h3><p>EXPLAIN后跟上SQL语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> + <span class="keyword">SQL</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="EXPLAIN能干嘛？"><a href="#EXPLAIN能干嘛？" class="headerlink" title="EXPLAIN能干嘛？"></a>EXPLAIN能干嘛？</h3><p>1、表的读取顺序<br>2、数据读取操作的操作类型<br>3、哪些索引可以使用<br>4、哪些索引被实际使用<br>5、表之间的引用<br>6、每张表有多少行被优化器查询</p>
@@ -374,6 +374,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/03/27/三-MySQL调优之-慢查询日志/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (三)MySQL调优之-慢查询日志
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/03/21/一-MySQL调优之-索引指南/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">(一)MySQL调优之-索引指南</div>
@@ -521,6 +530,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -530,6 +547,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MySQL调优</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">-- MySQL -- MySQL调优</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,14 +579,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Singleton</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
               </li>
              
               <li class="article-tag-list-item">

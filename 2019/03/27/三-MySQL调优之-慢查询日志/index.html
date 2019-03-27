@@ -6,19 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: MySQL | Welcome</title>
+  <title>(三)MySQL调优之-慢查询日志 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="陈一臣的个人博客">
-<meta name="keywords" content="陈一臣">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Welcome">
-<meta property="og:url" content="http://yoursite.com/tags/MySQL/index.html">
+  <meta name="description" content="慢查询日志是什么？1、MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。">
+<meta name="keywords" content="-- MySQL -- MySQL调优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(三)MySQL调优之-慢查询日志">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/三-MySQL调优之-慢查询日志/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="陈一臣的个人博客">
+<meta property="og:description" content="慢查询日志是什么？1、MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/27/5c9b681a406bb.png">
+<meta property="og:image" content="c:/Users/ChenYichen/AppData/Roaming/Typora/typora-user-images/1553688833197.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/27/5c9b6cba2b7dc.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/27/5c9b6d213e2a9.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/27/5c9b6deeccccb.png">
+<meta property="og:updated_time" content="2019-03-27T12:40:23.787Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Welcome">
-<meta name="twitter:description" content="陈一臣的个人博客">
+<meta name="twitter:title" content="(三)MySQL调优之-慢查询日志">
+<meta name="twitter:description" content="慢查询日志是什么？1、MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/27/5c9b681a406bb.png">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -154,68 +161,198 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-三-MySQL调优之-慢查询日志" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/21/一-MySQL调优之-索引指南/" class="archive-article-date">
-  	<time datetime="2019-03-21T07:31:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/21/一-MySQL调优之-索引指南/">(一)MySQL调优之-索引指南</a>
+    <h1 class="article-title" itemprop="name">
+      (三)MySQL调优之-慢查询日志
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/27/三-MySQL调优之-慢查询日志/" class="archive-article-date">
+  	<time datetime="2019-03-27T12:39:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><p>1、MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。</p>
+<a id="more"></a>
+<p>2、具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10秒以上的语句。</p>
+<p>3、由他来查看哪些SQL超出了我们的最大忍耐时间值，比如一条sql执行超过5秒钟，我们就算慢SQL，希望能收集超过5秒的sql，结合之前explain进行全面分析</p>
+<h2 id="如何使用慢查询日志？"><a href="#如何使用慢查询日志？" class="headerlink" title="如何使用慢查询日志？"></a>如何使用慢查询日志？</h2><p>默认情况下，MySQL数据库没有开启慢查询日志，需要我们手动来设置这个参数。</p>
+<p>当然，如果不是调优需要的话，一般不建议启动该参数，因为开启慢查询日志会或多或少带来一定的性能影响。慢查询日志支持将日志记录写入文件</p>
+<h3 id="查看是否开启及如何开启"><a href="#查看是否开启及如何开启" class="headerlink" title="查看是否开启及如何开启"></a>查看是否开启及如何开启</h3><h5 id="查看慢查询日志功能是否开启"><a href="#查看慢查询日志功能是否开启" class="headerlink" title="查看慢查询日志功能是否开启"></a>查看慢查询日志功能是否开启</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'%slow_query_log%'</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/27/5c9b681a406bb.png" alt></p>
+<p>日志的位置就是第二行的位置</p>
+<h5 id="开启功能"><a href="#开启功能" class="headerlink" title="开启功能"></a>开启功能</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> slow_query_log=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="查看和设置阙值"><a href="#查看和设置阙值" class="headerlink" title="查看和设置阙值"></a>查看和设置阙值</h3><h5 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'long_query_time%'</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\ChenYichen\AppData\Roaming\Typora\typora-user-images\1553688833197.png" alt></p>
+<p>阙值默认是10秒， 意思就是查询时间大于10秒的才算慢查询SQL</p>
+<h5 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>  long_query_time=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><img src="https://i.loli.net/2019/03/27/5c9b6cba2b7dc.png" alt></p>
+<h3 id="查询当前系统中有多少条慢查询记录"><a href="#查询当前系统中有多少条慢查询记录" class="headerlink" title="查询当前系统中有多少条慢查询记录"></a>查询当前系统中有多少条慢查询记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show global status like &apos;%Slow_queries%&apos;;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/27/5c9b6d213e2a9.png" alt></p>
+<h2 id="日志分析工具MySQLdumpslow"><a href="#日志分析工具MySQLdumpslow" class="headerlink" title="日志分析工具MySQLdumpslow"></a>日志分析工具MySQLdumpslow</h2><h3 id="查看MySQLdumpslow的帮助信息"><a href="#查看MySQLdumpslow的帮助信息" class="headerlink" title="查看MySQLdumpslow的帮助信息"></a>查看MySQLdumpslow的帮助信息</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldumpslow <span class="comment">--help</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/27/5c9b6deeccccb.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s: 是表示按照何种方式排序</span><br><span class="line">c: 访问次数</span><br><span class="line">l: 锁定时间</span><br><span class="line">r: 返回记录</span><br><span class="line">t: 查询时间</span><br><span class="line">al:平均锁定时间</span><br><span class="line">ar:平均返回记录数</span><br><span class="line">at:平均查询时间</span><br><span class="line">-t:即为返回前面多少条的数据；</span><br><span class="line">-g:后边搭配一个正则匹配模式，大小写不敏感的；</span><br></pre></td></tr></table></figure>
+<h3 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">得到返回记录集最多的10个SQL</span><br><span class="line">mysqldumpslow -s r -t 10 /var/lib/mysql/atguigu-slow.log</span><br><span class="line"> </span><br><span class="line">得到访问次数最多的10个SQL</span><br><span class="line">mysqldumpslow -s c -t 10 /var/lib/mysql/atguigu-slow.log</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的赞赏, 我会继续努力的！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">索引</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MySQL调优</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">-- MySQL -- MySQL调优</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/27/三-MySQL调优之-慢查询日志/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/03/24/二-MySQL调优之-EXPLAIN关键字/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">(二)MySQL调优之-EXPLAIN关键字</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://yoursite.com/2019/03/27/三-MySQL调优之-慢查询日志/", 
+    sourceId: "三-MySQL调优之-慢查询日志",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -238,9 +375,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
