@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MySQL索引篇，性能分析，性能优化 | Welcome</title>
+  <title>(一)MySQL调优之-索引指南 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快">
+  <meta name="description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于查得快 + 排序">
 <meta name="keywords" content="MySQL,索引,MySQL调优">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL索引篇，性能分析，性能优化">
-<meta property="og:url" content="http://yoursite.com/2019/03/21/MySQL索引篇，性能分析，性能优化/index.html">
+<meta property="og:title" content="(一)MySQL调优之-索引指南">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/一-MySQL调优之-索引指南/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快">
+<meta property="og:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于查得快 + 排序">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-24T12:46:17.699Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/27/5c9b2146e4838.bmp">
+<meta property="og:updated_time" content="2019-03-27T07:14:47.053Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL索引篇，性能分析，性能优化">
-<meta name="twitter:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于排序 + 查得快">
+<meta name="twitter:title" content="(一)MySQL调优之-索引指南">
+<meta name="twitter:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于查得快 + 排序">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/27/5c9b2146e4838.bmp">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -155,19 +157,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL索引篇，性能分析，性能优化" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-一-MySQL调优之-索引指南" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL索引篇，性能分析，性能优化
+      (一)MySQL调优之-索引指南
     </h1>
   
 
         
-        <a href="/2019/03/21/MySQL索引篇，性能分析，性能优化/" class="archive-article-date">
+        <a href="/2019/03/21/一-MySQL调优之-索引指南/" class="archive-article-date">
   	<time datetime="2019-03-21T07:31:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-21</time>
 </a>
         
@@ -178,14 +180,26 @@
         <h1 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h1><p>1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构</p>
 <p>2、索引的目的就在于提高查询效率， 可以类比字典</p>
 <p>3、<strong>你可以简单理解为排好序的快速查找的数据结构</strong></p>
-<p><span style="color:red"><strong>索引约等于排序 + 查得快</strong></span></p>
+<p><span style="color:red"><strong>索引约等于查得快 + 排序 </strong></span></p>
 <a id="more"></a>
-<h1 id="索引的优势和劣势？"><a href="#索引的优势和劣势？" class="headerlink" title="索引的优势和劣势？"></a>索引的优势和劣势？</h1><h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>1、创建了索引，提高了检索效率，降低的数据库的IO成本<br>2、创建了索引，提高了排序的效率，降低了CPU的消耗</p>
-<h1 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h1><p>1、实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录所以索引也是需要占用磁盘空间的， 虽然索引大大的提高了查询的效率， 同时却会降低更新表的数据， 如对表进行INSERT， UPDATE和DELETE因为更新表时，MySQL不仅仅保存我们的数据， 还要保存我们这条数据索引文件每次添加了索引列的字段， 都会调整因为更新所带来的键值变化后的索引信息。</p>
+<h1 id="索引的优势和劣势？"><a href="#索引的优势和劣势？" class="headerlink" title="索引的优势和劣势？"></a>索引的优势和劣势？</h1><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>1、创建了索引，提高了检索效率，降低的数据库的IO成本<br>2、通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗</p>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><p>1、实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录所以索引也是需要占用磁盘空间的， 虽然索引大大的提高了查询的效率， 同时却会降低更新表的数据， 如对表进行INSERT， UPDATE和DELETE因为更新表时，MySQL不仅仅保存我们的数据， 还要保存我们这条数据索引文件每次添加了索引列的字段， 都会调整因为更新所带来的键值变化后的索引信息。</p>
 <p>2、索引只是提高效率的一个因素， 如果你的MySQL有大数据了的表， 就需要花费时间研究最优秀的索引，或者优化查询的条件    </p>
 <h1 id="MySQL索引的结构"><a href="#MySQL索引的结构" class="headerlink" title="MySQL索引的结构"></a>MySQL索引的结构</h1><p>在Java的范畴，重点讲解BTree索引。</p>
-<h3 id="BTree"><a href="#BTree" class="headerlink" title="BTree"></a>BTree</h3><h4 id="1-BTree索引原理"><a href="#1-BTree索引原理" class="headerlink" title="1) BTree索引原理"></a>1) BTree索引原理</h4><h3 id="2-Hash索引"><a href="#2-Hash索引" class="headerlink" title="2) Hash索引"></a>2) Hash索引</h3><h3 id="3-full-text索引"><a href="#3-full-text索引" class="headerlink" title="3) full text索引"></a>3) full text索引</h3><h3 id="3-R-Tree索引"><a href="#3-R-Tree索引" class="headerlink" title="3) R-Tree索引"></a>3) R-Tree索引</h3><h1 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h1><p>1、单值索引<br>2、唯一索引<br>3、复合索引<br>4、基本语法</p>
-<h1 id="索引的创建方式"><a href="#索引的创建方式" class="headerlink" title="索引的创建方式"></a>索引的创建方式</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建：</span><br><span class="line">	<span class="keyword">CREATE</span> [<span class="keyword">UNIQUE</span>] <span class="keyword">INDEX</span> indexName <span class="keyword">ON</span> tableName(cloumn(<span class="keyword">length</span>));</span><br><span class="line">	<span class="keyword">ALTER</span> tableName <span class="keyword">ADD</span> [<span class="keyword">UNIQUE</span>] [indexName] <span class="keyword">on</span> (cloumn(<span class="keyword">length</span>));</span><br><span class="line">查看</span><br><span class="line">	<span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> tableName\G</span><br></pre></td></tr></table></figure>
+<h3 id="B-树-Balance-Tree多路平衡查找树"><a href="#B-树-Balance-Tree多路平衡查找树" class="headerlink" title="B+树(Balance Tree多路平衡查找树)"></a>B+树(Balance Tree多路平衡查找树)</h3><p><img src="https://i.loli.net/2019/03/27/5c9b2146e4838.bmp" alt></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">【初始化介绍】 </span><br><span class="line">一颗B+树，浅蓝色的块我们称之为一个磁盘块，可以看到每个磁盘块包含几个数据项（深蓝色所示）和指针（黄色所示），</span><br><span class="line">如磁盘块1包含数据项17和35，包含指针P1、P2、P3，</span><br><span class="line">P1表示小于17的磁盘块，P2表示在17和35之间的磁盘块，P3表示大于35的磁盘块。</span><br><span class="line">真实的数据存在于叶子节点即3、5、9、10、13、15、28、29、36、60、75、79、90、99。</span><br><span class="line">非叶子节点不存储真实的数据，只存储指引搜索方向的数据项，如17、35并不真实存在于数据表中。</span><br><span class="line"> </span><br><span class="line">【查找过程】</span><br><span class="line">如果要查找数据项29，那么首先会把磁盘块1由磁盘加载到内存，此时发生一次IO，在内存中用二分查找确定29在17和35之间，锁定磁盘块1的P2指针，内存时间因为非常短（相比磁盘的IO）可以忽略不计，通过磁盘块1的P2指针的磁盘地址把磁盘块3由磁盘加载到内存，发生第二次IO，29在26和30之间，锁定磁盘块3的P2指针，通过指针加载磁盘块8到内存，发生第三次IO，同时内存中做二分查找找到29，结束查询，总计三次IO。</span><br><span class="line"> </span><br><span class="line">真实的情况是，3层的B+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高。</span><br></pre></td></tr></table></figure>
+<h1 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h1><h3 id="1、单值索引"><a href="#1、单值索引" class="headerlink" title="1、单值索引"></a>1、单值索引</h3><p>即一个索引只包含单个列，一个表可以有多个单列索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">随表一起建索引：</span><br><span class="line">CREATE TABLE customer (id INT(10) UNSIGNED  AUTO_INCREMENT ,customer_no VARCHAR(200),customer_name VARCHAR(200),</span><br><span class="line">  PRIMARY KEY(id),</span><br><span class="line">  KEY (customer_name)</span><br><span class="line">);</span><br><span class="line">  </span><br><span class="line">单独建单值索引：</span><br><span class="line">CREATE  INDEX idx_customer_name ON customer(customer_name); </span><br><span class="line"> </span><br><span class="line">删除索引：</span><br><span class="line">DROP INDEX idx_customer_name  on customer;</span><br></pre></td></tr></table></figure>
+<h3 id="2、唯一索引"><a href="#2、唯一索引" class="headerlink" title="2、唯一索引"></a>2、唯一索引</h3><p>索引列的值必须唯一，但允许有空值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">随表一起建索引：</span><br><span class="line">CREATE TABLE customer (id INT(10) UNSIGNED  AUTO_INCREMENT ,customer_no VARCHAR(200),customer_name VARCHAR(200),</span><br><span class="line">  PRIMARY KEY(id),</span><br><span class="line">  KEY (customer_name),</span><br><span class="line">  UNIQUE (customer_no)</span><br><span class="line">);</span><br><span class="line">  </span><br><span class="line">单独建唯一索引：</span><br><span class="line">CREATE UNIQUE INDEX idx_customer_no ON customer(customer_no); </span><br><span class="line"> </span><br><span class="line">删除索引：</span><br><span class="line">DROP INDEX idx_customer_no on customer ;</span><br></pre></td></tr></table></figure>
+<h3 id="3、主键索引"><a href="#3、主键索引" class="headerlink" title="3、主键索引"></a>3、主键索引</h3><p>设定为主键后数据库会自动建立索引，innodb为聚簇索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">随表一起建索引：</span><br><span class="line">CREATE TABLE customer (id INT(10) UNSIGNED  AUTO_INCREMENT ,customer_no VARCHAR(200),customer_name VARCHAR(200),</span><br><span class="line">  PRIMARY KEY(id) </span><br><span class="line">);</span><br><span class="line">   </span><br><span class="line">CREATE TABLE customer2 (id INT(10) UNSIGNED   ,customer_no VARCHAR(200),customer_name VARCHAR(200),</span><br><span class="line">  PRIMARY KEY(id) </span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line"> 单独建主键索引：</span><br><span class="line">ALTER TABLE customer </span><br><span class="line"> add PRIMARY KEY customer(customer_no);  </span><br><span class="line"> </span><br><span class="line">删除建主键索引：</span><br><span class="line">ALTER TABLE customer </span><br><span class="line"> drop PRIMARY KEY ;  </span><br><span class="line"> </span><br><span class="line">修改建主键索引：</span><br><span class="line">必须先删除掉(drop)原索引，再新建(add)索引</span><br></pre></td></tr></table></figure>
+<h3 id="4、复合索引"><a href="#4、复合索引" class="headerlink" title="4、复合索引"></a>4、复合索引</h3><p>即一个索引包含多个列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> 随表一起建索引：</span><br><span class="line">CREATE TABLE customer (id INT(10) UNSIGNED  AUTO_INCREMENT ,customer_no VARCHAR(200),customer_name VARCHAR(200),</span><br><span class="line">  PRIMARY KEY(id),</span><br><span class="line">  KEY (customer_name),</span><br><span class="line">  UNIQUE (customer_name),</span><br><span class="line">  KEY (customer_no,customer_name)</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">单独建索引：</span><br><span class="line">CREATE  INDEX idx_no_name ON customer(customer_no,customer_name); </span><br><span class="line"> </span><br><span class="line">删除索引：</span><br><span class="line">DROP INDEX idx_no_name  on customer ;</span><br></pre></td></tr></table></figure>
+<h1 id="索引的创建方式"><a href="#索引的创建方式" class="headerlink" title="索引的创建方式"></a>索引的创建方式</h1><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE  [UNIQUE ]  INDEX [indexName] ON table_name(column))</span><br></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX [indexName] ON mytable</span><br></pre></td></tr></table></figure>
+<h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW INDEX FROM table_name\G</span><br></pre></td></tr></table></figure>
+<h3 id="使用ALTER命令"><a href="#使用ALTER命令" class="headerlink" title="使用ALTER命令"></a>使用ALTER命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">有四种方式来添加数据表的索引：</span><br><span class="line">ALTER TABLE tbl_name ADD PRIMARY KEY (column_list): 该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL。</span><br><span class="line"> </span><br><span class="line">ALTER TABLE tbl_name ADD UNIQUE index_name (column_list): 这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）。</span><br><span class="line"> </span><br><span class="line">ALTER TABLE tbl_name ADD INDEX index_name (column_list): 添加普通索引，索引值可出现多次。</span><br><span class="line"> </span><br><span class="line">ALTER TABLE tbl_name ADD FULLTEXT index_name (column_list):该语句指定了索引为 FULLTEXT ，用于全文索引。</span><br></pre></td></tr></table></figure>
 <h1 id="哪些情况需要创建索引"><a href="#哪些情况需要创建索引" class="headerlink" title="哪些情况需要创建索引"></a>哪些情况需要创建索引</h1><p>1.主键自动创建索引<br>2.频繁查询的字段创建索引<br>3.查询中，与其他表关联的字段，外键关系创建索引<br>4.频繁更新的字段不适合创建索引， 因为每次更新不单单更新记录，还更新索引的BTree<br>5.WHERE条件中用不到的字段不创建索引<br>6.单值/组合选问题，who? (在高并发下倾向创建组合索引)<br>7.查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度<br>8.查询中统计或者分组字段    </p>
 <h1 id="哪些情况不要创建索引"><a href="#哪些情况不要创建索引" class="headerlink" title="哪些情况不要创建索引"></a>哪些情况不要创建索引</h1><ol>
 <li>表记录太少</li>
@@ -193,8 +207,7 @@
 </code></pre></li>
 <li>数据重复且分布平均的表字段， 因此应该只是为最经常查询和最经常排序的数据创建索引注意，如果某个数据列包含许多重复内容，为她建立索引就没有太大实际的效果</li>
 </ol>
-<h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p><strong>一张表的索引最好不要超过5个</strong></p>
-<h1 id="EXPLAIN关键字"><a href="#EXPLAIN关键字" class="headerlink" title="EXPLAIN关键字"></a>EXPLAIN关键字</h1>
+
       
 
       
@@ -292,7 +305,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/21/MySQL索引篇，性能分析，性能优化/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/21/一-MySQL调优之-索引指南/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -348,8 +361,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2019/03/21/MySQL索引篇，性能分析，性能优化/", 
-    sourceId: "MySQL索引篇，性能分析，性能优化",
+    url: "http://yoursite.com/2019/03/21/一-MySQL调优之-索引指南/", 
+    sourceId: "一-MySQL调优之-索引指南",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
