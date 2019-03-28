@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Welcome</title>
+  <title>(四)MySQL调优之-SHOW PROFILE | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="陈一臣的个人博客">
-<meta name="keywords" content="陈一臣">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Welcome">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="SHOW PROFILE是什么？SHOW PROFILE 是MySQL 提供可以用来分析当前会话中语句执行的资源消耗情况。可以用于SQL 调优的测量">
+<meta name="keywords" content="MySQL调优,SHOW PROFILE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(四)MySQL调优之-SHOW PROFILE">
+<meta property="og:url" content="http://yoursite.com/2019/01/24/四-MySQL调优之-SHOW-PROFILE/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="陈一臣的个人博客">
+<meta property="og:description" content="SHOW PROFILE是什么？SHOW PROFILE 是MySQL 提供可以用来分析当前会话中语句执行的资源消耗情况。可以用于SQL 调优的测量">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/28/5c9c41308ee12.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/28/5c9c41d32ad0a.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/28/5c9c433fe7475.png">
+<meta property="og:updated_time" content="2019-03-28T04:17:42.239Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Welcome">
-<meta name="twitter:description" content="陈一臣的个人博客">
+<meta name="twitter:title" content="(四)MySQL调优之-SHOW PROFILE">
+<meta name="twitter:description" content="SHOW PROFILE是什么？SHOW PROFILE 是MySQL 提供可以用来分析当前会话中语句执行的资源消耗情况。可以用于SQL 调优的测量">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/28/5c9c41308ee12.png">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -154,343 +159,138 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-四-MySQL调优之-SHOW-PROFILE" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-n">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/19/Java中的GC/" class="archive-article-date">
-  	<time datetime="2019-03-19T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/19/Java中的GC/">Java中的GC</a>
+    <h1 class="article-title" itemprop="name">
+      (四)MySQL调优之-SHOW PROFILE
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">垃圾回收机制</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/19/JVM指南/" class="archive-article-date">
-  	<time datetime="2019-03-19T02:33:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/19/JVM指南/">JVM指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Java虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/RESTful-干货/" class="archive-article-date">
-  	<time datetime="2019-03-11T12:50:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/RESTful-干货/">RESTful 干货</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/从字节码文件来看i-操作/" class="archive-article-date">
-  	<time datetime="2019-03-11T12:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/从字节码文件来看i-操作/">从字节码文件来看i++操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/JUC-高并发容器/" class="archive-article-date">
-  	<time datetime="2019-03-11T12:46:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/JUC-高并发容器/">JUC-高并发容器</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/volatile-关键字/" class="archive-article-date">
-  	<time datetime="2019-03-11T12:46:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/volatile-关键字/">volatile 关键字</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/从微服务到Spring Cloud/" class="archive-article-date">
-  	<time datetime="2019-03-11T12:18:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/从微服务到Spring Cloud/">从微服务到Spring Cloud</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/11/单例的四种实现方式/" class="archive-article-date">
-  	<time datetime="2019-02-11T12:46:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/11/单例的四种实现方式/">单例的四种实现方式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">单例设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Singleton</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-n">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/30/什么是微服务/" class="archive-article-date">
-  	<time datetime="2019-01-30T01:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/30/什么是微服务/">什么是微服务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Microservice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/24/四-MySQL调优之-SHOW-PROFILE/" class="archive-article-date">
+        
+        <a href="/2019/01/24/四-MySQL调优之-SHOW-PROFILE/" class="archive-article-date">
   	<time datetime="2019-01-24T04:15:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/24/四-MySQL调优之-SHOW-PROFILE/">(四)MySQL调优之-SHOW PROFILE</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SHOW-PROFILE"><a href="#SHOW-PROFILE" class="headerlink" title="SHOW PROFILE"></a>SHOW PROFILE</h1><h2 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h2><p>SHOW PROFILE 是MySQL 提供可以用来分析当前会话中语句执行的资源消耗情况。可以用于SQL 调优的测量</p>
+<a id="more"></a>
+<h2 id="怎么玩？"><a href="#怎么玩？" class="headerlink" title="怎么玩？"></a>怎么玩？</h2><p>注意： MySQL默认是关闭这个功能的！</p>
+<h4 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span>  <span class="keyword">like</span> <span class="string">'%profiling%'</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/28/5c9c41308ee12.png" alt></p>
+<h4 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> profiling=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="显示最近几次的查询"><a href="#显示最近几次的查询" class="headerlink" title="显示最近几次的查询"></a>显示最近几次的查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">profiles</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/28/5c9c41d32ad0a.png" alt></p>
+<h4 id="查询单个SQL的执行步骤"><a href="#查询单个SQL的执行步骤" class="headerlink" title="查询单个SQL的执行步骤"></a>查询单个SQL的执行步骤</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> profile cpu, <span class="keyword">block</span> io <span class="keyword">for</span> <span class="keyword">query</span> [queryID];</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/03/28/5c9c433fe7475.png" alt></p>
+<p>通过上面的执行过程分析，加上EXPLAIN关键字，我们基本可以诊断慢SQL的病因了</p>
+<h4 id="参数拓展"><a href="#参数拓展" class="headerlink" title="参数拓展"></a>参数拓展</h4><p>在使用show profile cpu, block io for query [queryID];的时候我们可以添加参数</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALL</td>
+<td>显示所有开销的信息</td>
+</tr>
+<tr>
+<td>BLOCK IO</td>
+<td>显示IO相关开销的信息</td>
+</tr>
+<tr>
+<td>CONTEXT SWITCHES</td>
+<td>上下文切换相关开销信息</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>显示CPU相关开销信息</td>
+</tr>
+<tr>
+<td>IPC</td>
+<td>显示发送和接受相关开销信息</td>
+</tr>
+<tr>
+<td>MEMORY</td>
+<td>显示内存相关开销信息</td>
+</tr>
+<tr>
+<td>PAGE FAULTS</td>
+<td>显示页面错误相关开销信息</td>
+</tr>
+<tr>
+<td>SOURCE</td>
+<td>显示和Source_function, Source_file, Source_line相关的开销信息</td>
+</tr>
+<tr>
+<td>SWAPS</td>
+<td>显示交换次数相关开销的信息</td>
+</tr>
+</tbody>
+</table>
+<h4 id="尽量避免的情况"><a href="#尽量避免的情况" class="headerlink" title="尽量避免的情况"></a>尽量避免的情况</h4><table>
+<thead>
+<tr>
+<th>Status</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>converting HEAP to MyISAM</td>
+<td>查询结果太大，内存都不够用了往磁盘上搬了</td>
+</tr>
+<tr>
+<td>create tmp table</td>
+<td>创建临时表</td>
+</tr>
+<tr>
+<td>copy to tmp table on disk</td>
+<td>把内存中临时表复制到磁盘，危险！！！</td>
+</tr>
+<tr>
+<td>locked</td>
+</tr>
+</tbody>
+</table>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢您的赞赏, 我会继续努力的！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -506,22 +306,125 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/24/四-MySQL调优之-SHOW-PROFILE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/01/30/什么是微服务/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          什么是微服务
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/01/23/三-MySQL调优之-慢查询日志/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">(三)MySQL调优之-慢查询日志</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://yoursite.com/2019/01/24/四-MySQL调优之-SHOW-PROFILE/", 
+    sourceId: "四-MySQL调优之-SHOW-PROFILE",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -545,8 +448,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

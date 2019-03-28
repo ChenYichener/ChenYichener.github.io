@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>(一)MySQL调优之-索引指南 | Welcome</title>
+  <title>(二)MySQL调优之-EXPLAIN关键字 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于查得快 + 排序">
-<meta name="keywords" content="MySQL,索引,MySQL调优">
+  <meta name="description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈">
+<meta name="keywords" content="MySQL调优,MySQL性能分析,EXPLAIN关键字">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(一)MySQL调优之-索引指南">
-<meta property="og:url" content="http://yoursite.com/2019/03/21/一-MySQL调优之-索引指南/index.html">
+<meta property="og:title" content="(二)MySQL调优之-EXPLAIN关键字">
+<meta property="og:url" content="http://yoursite.com/2019/01/22/二-MySQL调优之-EXPLAIN关键字/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于查得快 + 排序">
+<meta property="og:description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/27/5c9b2146e4838.bmp">
-<meta property="og:updated_time" content="2019-03-27T07:24:11.525Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/24/5c977e64bf500.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/24/5c9781973d286.png">
+<meta property="og:updated_time" content="2019-03-28T04:17:24.041Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(一)MySQL调优之-索引指南">
-<meta name="twitter:description" content="什么是索引1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构 2、索引的目的就在于提高查询效率， 可以类比字典 3、你可以简单理解为排好序的快速查找的数据结构 索引约等于查得快 + 排序">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/27/5c9b2146e4838.bmp">
+<meta name="twitter:title" content="(二)MySQL调优之-EXPLAIN关键字">
+<meta name="twitter:description" content="索引优化分析：性能分析：EXPLAIN关键字是什么？1、简单说：查询执行计划2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/24/5c977e64bf500.png">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -157,56 +158,110 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-一-MySQL调优之-索引指南" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-二-MySQL调优之-EXPLAIN关键字" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      (一)MySQL调优之-索引指南
+      (二)MySQL调优之-EXPLAIN关键字
     </h1>
   
 
         
-        <a href="/2019/03/21/一-MySQL调优之-索引指南/" class="archive-article-date">
-  	<time datetime="2019-03-21T07:31:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-21</time>
+        <a href="/2019/01/22/二-MySQL调优之-EXPLAIN关键字/" class="archive-article-date">
+  	<time datetime="2019-01-22T14:41:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h1><p>1、索引是帮助MySQL高效获取数据的数据结构，简单说索引就是数据结构</p>
-<p>2、索引的目的就在于提高查询效率， 可以类比字典</p>
-<p>3、<strong>你可以简单理解为排好序的快速查找的数据结构</strong></p>
-<p><span style="color:red"><strong>索引约等于查得快 + 排序 </strong></span></p>
+        <h1 id="索引优化分析："><a href="#索引优化分析：" class="headerlink" title="索引优化分析："></a>索引优化分析：</h1><h2 id="性能分析："><a href="#性能分析：" class="headerlink" title="性能分析："></a>性能分析：</h2><h3 id="EXPLAIN关键字是什么？"><a href="#EXPLAIN关键字是什么？" class="headerlink" title="EXPLAIN关键字是什么？"></a>EXPLAIN关键字是什么？</h3><p>1、简单说：查询执行计划<br>2、使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是<br>如何处理你的SQL语句的。分析你的查询语句或是表结构的性能瓶颈</p>
 <a id="more"></a>
-<h1 id="索引的优势和劣势？"><a href="#索引的优势和劣势？" class="headerlink" title="索引的优势和劣势？"></a>索引的优势和劣势？</h1><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>1、创建了索引，提高了检索效率，降低的数据库的IO成本<br>2、通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗</p>
-<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><p>1、实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录所以索引也是需要占用磁盘空间的， 虽然索引大大的提高了查询的效率， 同时却会降低更新表的数据， 如对表进行INSERT， UPDATE和DELETE因为更新表时，MySQL不仅仅保存我们的数据， 还要保存我们这条数据索引文件每次添加了索引列的字段， 都会调整因为更新所带来的键值变化后的索引信息。</p>
-<p>2、索引只是提高效率的一个因素， 如果你的MySQL有大数据了的表， 就需要花费时间研究最优秀的索引，或者优化查询的条件    </p>
-<h1 id="MySQL索引的结构"><a href="#MySQL索引的结构" class="headerlink" title="MySQL索引的结构"></a>MySQL索引的结构</h1><p>在Java的范畴，重点讲解BTree索引。</p>
-<h3 id="B-树-Balance-Tree多路平衡查找树"><a href="#B-树-Balance-Tree多路平衡查找树" class="headerlink" title="B+树(Balance Tree多路平衡查找树)"></a>B+树(Balance Tree多路平衡查找树)</h3><p><img src="https://i.loli.net/2019/03/27/5c9b2146e4838.bmp" alt></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">【初始化介绍】 </span><br><span class="line">一颗B+树，浅蓝色的块我们称之为一个磁盘块，可以看到每个磁盘块包含几个数据项（深蓝色所示）和指针（黄色所示），</span><br><span class="line">如磁盘块1包含数据项17和35，包含指针P1、P2、P3，</span><br><span class="line">P1表示小于17的磁盘块，P2表示在17和35之间的磁盘块，P3表示大于35的磁盘块。</span><br><span class="line">真实的数据存在于叶子节点即3、5、9、10、13、15、28、29、36、60、75、79、90、99。</span><br><span class="line">非叶子节点不存储真实的数据，只存储指引搜索方向的数据项，如17、35并不真实存在于数据表中。</span><br><span class="line"> </span><br><span class="line">【查找过程】</span><br><span class="line">如果要查找数据项29，那么首先会把磁盘块1由磁盘加载到内存，此时发生一次IO，在内存中用二分查找确定29在17和35之间，锁定磁盘块1的P2指针，内存时间因为非常短（相比磁盘的IO）可以忽略不计，通过磁盘块1的P2指针的磁盘地址把磁盘块3由磁盘加载到内存，发生第二次IO，29在26和30之间，锁定磁盘块3的P2指针，通过指针加载磁盘块8到内存，发生第三次IO，同时内存中做二分查找找到29，结束查询，总计三次IO。</span><br><span class="line"> </span><br><span class="line">真实的情况是，3层的B+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高。</span><br></pre></td></tr></table></figure>
-<h1 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h1><h3 id="1、单值索引"><a href="#1、单值索引" class="headerlink" title="1、单值索引"></a>1、单值索引</h3><p>即一个索引只包含单个列，一个表可以有多个单列索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">随表一起建索引：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> customer (<span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">UNSIGNED</span>  AUTO_INCREMENT ,customer_no <span class="built_in">VARCHAR</span>(<span class="number">200</span>),customer_name <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>),</span><br><span class="line">  <span class="keyword">KEY</span> (customer_name)</span><br><span class="line">);</span><br><span class="line">  </span><br><span class="line">单独建单值索引：</span><br><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">INDEX</span> idx_customer_name <span class="keyword">ON</span> customer(customer_name); </span><br><span class="line"> </span><br><span class="line">删除索引：</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> idx_customer_name  <span class="keyword">on</span> customer;</span><br></pre></td></tr></table></figure>
-<h3 id="2、唯一索引"><a href="#2、唯一索引" class="headerlink" title="2、唯一索引"></a>2、唯一索引</h3><p>索引列的值必须唯一，但允许有空值</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">随表一起建索引：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> customer (<span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">UNSIGNED</span>  AUTO_INCREMENT ,customer_no <span class="built_in">VARCHAR</span>(<span class="number">200</span>),customer_name <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>),</span><br><span class="line">  <span class="keyword">KEY</span> (customer_name),</span><br><span class="line">  <span class="keyword">UNIQUE</span> (customer_no)</span><br><span class="line">);</span><br><span class="line">  </span><br><span class="line">单独建唯一索引：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> idx_customer_no <span class="keyword">ON</span> customer(customer_no); </span><br><span class="line"> </span><br><span class="line">删除索引：</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> idx_customer_no <span class="keyword">on</span> customer ;</span><br></pre></td></tr></table></figure>
-<h3 id="3、主键索引"><a href="#3、主键索引" class="headerlink" title="3、主键索引"></a>3、主键索引</h3><p>设定为主键后数据库会自动建立索引，innodb为聚簇索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">随表一起建索引：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> customer (<span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">UNSIGNED</span>  AUTO_INCREMENT ,customer_no <span class="built_in">VARCHAR</span>(<span class="number">200</span>),customer_name <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>) </span><br><span class="line">);</span><br><span class="line">   </span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> customer2 (<span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">UNSIGNED</span>   ,customer_no <span class="built_in">VARCHAR</span>(<span class="number">200</span>),customer_name <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>) </span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line"> 单独建主键索引：</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> customer </span><br><span class="line"> <span class="keyword">add</span> PRIMARY <span class="keyword">KEY</span> customer(customer_no);  </span><br><span class="line"> </span><br><span class="line">删除建主键索引：</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> customer </span><br><span class="line"> <span class="keyword">drop</span> PRIMARY <span class="keyword">KEY</span> ;  </span><br><span class="line"> </span><br><span class="line">修改建主键索引：</span><br><span class="line">必须先删除掉(<span class="keyword">drop</span>)原索引，再新建(<span class="keyword">add</span>)索引</span><br></pre></td></tr></table></figure>
-<h3 id="4、复合索引"><a href="#4、复合索引" class="headerlink" title="4、复合索引"></a>4、复合索引</h3><p>即一个索引包含多个列</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> 随表一起建索引：</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> customer (<span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">UNSIGNED</span>  AUTO_INCREMENT ,customer_no <span class="built_in">VARCHAR</span>(<span class="number">200</span>),customer_name <span class="built_in">VARCHAR</span>(<span class="number">200</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span>(<span class="keyword">id</span>),</span><br><span class="line">  <span class="keyword">KEY</span> (customer_name),</span><br><span class="line">  <span class="keyword">UNIQUE</span> (customer_name),</span><br><span class="line">  <span class="keyword">KEY</span> (customer_no,customer_name)</span><br><span class="line">);</span><br><span class="line"> </span><br><span class="line">单独建索引：</span><br><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">INDEX</span> idx_no_name <span class="keyword">ON</span> customer(customer_no,customer_name); </span><br><span class="line"> </span><br><span class="line">删除索引：</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> idx_no_name  <span class="keyword">on</span> customer ;</span><br></pre></td></tr></table></figure>
-<h1 id="索引的创建方式"><a href="#索引的创建方式" class="headerlink" title="索引的创建方式"></a>索引的创建方式</h1><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span>  [<span class="keyword">UNIQUE</span> ]  <span class="keyword">INDEX</span> [indexName] <span class="keyword">ON</span> table_name(<span class="keyword">column</span>))</span><br></pre></td></tr></table></figure>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> [indexName] <span class="keyword">ON</span> mytable</span><br></pre></td></tr></table></figure>
-<h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> table_name\G</span><br></pre></td></tr></table></figure>
-<h3 id="使用ALTER命令"><a href="#使用ALTER命令" class="headerlink" title="使用ALTER命令"></a>使用ALTER命令</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">有四种方式来添加数据表的索引：</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tbl_name <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> (column_list): 该语句添加一个主键，这意味着索引值必须是唯一的，且不能为<span class="literal">NULL</span>。</span><br><span class="line"> </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tbl_name <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> index_name (column_list): 这条语句创建索引的值必须是唯一的（除了<span class="literal">NULL</span>外，<span class="literal">NULL</span>可能会出现多次）。</span><br><span class="line"> </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tbl_name <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name (column_list): 添加普通索引，索引值可出现多次。</span><br><span class="line"> </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tbl_name <span class="keyword">ADD</span> FULLTEXT index_name (column_list):该语句指定了索引为 FULLTEXT ，用于全文索引。</span><br></pre></td></tr></table></figure>
-<h1 id="哪些情况需要创建索引"><a href="#哪些情况需要创建索引" class="headerlink" title="哪些情况需要创建索引"></a>哪些情况需要创建索引</h1><p>1.主键自动创建索引<br>2.频繁查询的字段创建索引<br>3.查询中，与其他表关联的字段，外键关系创建索引<br>4.频繁更新的字段不适合创建索引， 因为每次更新不单单更新记录，还更新索引的BTree<br>5.WHERE条件中用不到的字段不创建索引<br>6.单值/组合选问题，who? (在高并发下倾向创建组合索引)<br>7.查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度<br>8.查询中统计或者分组字段    </p>
-<h1 id="哪些情况不要创建索引"><a href="#哪些情况不要创建索引" class="headerlink" title="哪些情况不要创建索引"></a>哪些情况不要创建索引</h1><ol>
-<li>表记录太少</li>
-<li>经常增删改的表<pre><code>why: 提高了查询效率，同时却会降低更新表的速度，如对表进行INSERT，UPDATE和，因为更新表时，             不因更新的表数据，同时还会保存索引文件
-</code></pre></li>
-<li>数据重复且分布平均的表字段， 因此应该只是为最经常查询和最经常排序的数据创建索引注意，如果某个数据列包含许多重复内容，为她建立索引就没有太大实际的效果</li>
-</ol>
+<h3 id="EXPLAIN关键字如何使用？"><a href="#EXPLAIN关键字如何使用？" class="headerlink" title="EXPLAIN关键字如何使用？"></a>EXPLAIN关键字如何使用？</h3><p>EXPLAIN后跟上SQL语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> + <span class="keyword">SQL</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="EXPLAIN能干嘛？"><a href="#EXPLAIN能干嘛？" class="headerlink" title="EXPLAIN能干嘛？"></a>EXPLAIN能干嘛？</h3><p>1、表的读取顺序<br>2、数据读取操作的操作类型<br>3、哪些索引可以使用<br>4、哪些索引被实际使用<br>5、表之间的引用<br>6、每张表有多少行被优化器查询</p>
+<h3 id="查询的类具体的列"><a href="#查询的类具体的列" class="headerlink" title="查询的类具体的列"></a>查询的类具体的列</h3><table>
+<thead>
+<tr>
+<th>id</th>
+<th>select_type</th>
+<th>table</th>
+<th>type</th>
+<th>possible_keys</th>
+<th>key</th>
+<th>key_len</th>
+<th>ref</th>
+<th>rows</th>
+<th>Extra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="各列详细解释"><a href="#各列详细解释" class="headerlink" title="各列详细解释"></a>各列详细解释</h3><table>
+<thead>
+<tr>
+<th>列名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>id</strong></td>
+<td><strong>表的读取顺序：和table结合来看<br>id相同：执行顺序由上至下<br>id不同：id值越大优先级越高，越先被执行<br>id相同不同同时存在：id不同的值越大越先被执行，id相同的依次执行</strong></td>
+</tr>
+<tr>
+<td>select_type</td>
+<td>数据读取操作的操作类型<br>有哪些？<br><img src="https://i.loli.net/2019/03/24/5c977e64bf500.png" alt><br>SIMPLE：简单的select查询，查询中不包含子查询或者union<br>PRIMARY：查找中若包含任何复杂的子部分，最外层查询则被标记为<br>SUBQUERY：在SELECT或WHERE列表中包含了子查询<br>DERIVED：在FROM列表中包含的子查询被标记为DERIVED(衍生),MySQL会递归执行这些子查询，把结果放在临时表中<br>UNION：若第二个SELCT出现在UNION之后，则被标记为UNION；若UNION包含在FROM子句的子查询中，外层SELCT被标记为DERIVED<br>UNION RESULT：从UNION表获取结果的SELECT</td>
+</tr>
+<tr>
+<td>table</td>
+<td>显示这一行数据是关于哪张表的</td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td><strong>访问的类型<br><img src="https://i.loli.net/2019/03/24/5c9781973d286.png" alt><br>从最好到最差依次如下： system &gt; const &gt; eq_ref &gt; ref &gt; range -&gt; index &gt; all<br>system： 表只有一行记录(等于系统表), 这是const类型的特例，平时不会出现，这个也可以忽略不计<br>const：表示通过索引一次就找到了，const用于比较primary key或者unique索引， 因为只匹配一行数据，所以很快如将主键置于where列表中， MySQL就能将该查询转换为一个常量<br>eq_ref：唯一性索引扫描，对于每一个索引键，表中只有一条记录与之匹配， 常见于主键索引或是唯一索引<br>ref：非唯一性索引扫描，返回匹配某个单独值的所有行，本质上也是一种索引访问，它返回索引匹配某个单独值的行，然而它可能会找到多个符合条件的行，索引它应该属于查找和扫描的混合体<br>range：只检索给定范围的行， 使用一个索引来选择行， key列显示使用了那个索引一般就是在你的where语句中出现了between、&gt;、&lt;、in等查询，这种范围扫描索引比全表扫描要好，因为它只是需要开始于索引的某一点，而结束与另一点，不用扫描全部索引<br>index：Full Index Scan，index与ALL区别为index类型只遍历索引树，这通常比ALL快因为索引文件通常比数据文件小。也就是说虽然ALL和index都是读全表，但是index是从索引中读取的，而ALL是从硬盘读取的<br>ALL：Full Table Scan 将遍历全表以查找到匹配的行<br>一般来说的保证查询达到range以上，最好到ref</strong></td>
+</tr>
+<tr>
+<td><strong>possible_keys</strong></td>
+<td><strong>显示可能应用在这张表的索引，一个或者多个。查询设计到的字段若存在索引，则该索引将被列出。但是不一定被查询实际使用</strong></td>
+</tr>
+<tr>
+<td><strong>key</strong></td>
+<td><strong>实际使用的索引， 如果为NULL，则没有使用索引查询中若使用了覆盖索引，则该索引仅出现在key列表中<br>覆盖索引： 就是说select后面查询的字段和创建的索引顺序个数一一吻合</strong></td>
+</tr>
+<tr>
+<td>key_len</td>
+<td>表示索引中使用的字节数，可通过该列计算查询中使用的索引的查询，在不存精确性的情况下，长度越短越好<br>key_len显示的值为索引字段的最大可能长度，并非实际使用长度，即key_len是根据表定义计算而得，不是用过表内检索出的</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>ref：显示索引的那一列被使用了，如果可能的话，是一个常数，哪些列或常量被用于查找索引列上的值</td>
+</tr>
+<tr>
+<td><strong>rows</strong></td>
+<td><strong>rows：根据表统计信息及索引引用情况，大致估算出找到所需的记录要读取的行数</strong></td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>包含不适合在其他列中显示但十分重要的额外信息<br>Using filesort: 说明MySQL会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取。MySQL中无法利用索引完成的排序操作称为“文件排序”，这里建议，在ORDER BY的时候一定要参考索引，不然容易文件呢排序，<b style="color:red">尽量避免</b><br>Using temporary: 使用了临时表保存中间结果，MySQL在对查询结果排序时使用了临时表。常见于ORDER BY和分组查询GROUP BY， <b style="color:red">尽量避免</b><br>Using index: 表示相应的select操作中使用覆盖索引(Covering Index),避免访问了表的额数据行， 效率不错！ 如果同时出现Using  Where 表明索引被用来执行索引键值的查找；如果没有同时出现Using WHere 表明索引引用来读取数据而非执行查找动作<br>Using where: 使用了where过滤<br>Using join buffer:使用了连接缓存<br>impossible where: where子句的值总是false，不能用来获取任何元组<br>select table optimized away:在没有GROUP BY子句的情况下，基于索引优化MIN/MAX操作或者对应MyISAM存储引擎优化COUNT(*)操作，不必等到执行阶段在进行计算，查询执行计划生成的阶段即完成优化<br>distinct: 优化distinct操作，在知道第一匹配的元组后即停止找同样值的动作</td>
+</tr>
+</tbody>
+</table>
+<h4 id="覆盖索引："><a href="#覆盖索引：" class="headerlink" title="覆盖索引："></a>覆盖索引：</h4><p>就是select的数据列只用了索引中就能够取得，不必读取数据行，MySQL可以利用索引返回select列表中的字段，而不必根据索引再次读取数据文件，换句话说查询列要被所建的索引覆盖</p>
 
       
 
@@ -241,15 +296,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">索引</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MySQL调优</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MySQL性能分析</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">EXPLAIN关键字</a>
         		</li>
       		
 		</ul>
@@ -305,7 +360,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/21/一-MySQL调优之-索引指南/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/22/二-MySQL调优之-EXPLAIN关键字/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +374,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/24/二-MySQL调优之-EXPLAIN关键字/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/01/23/三-MySQL调优之-慢查询日志/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (二)MySQL调优之-EXPLAIN关键字
+          (三)MySQL调优之-慢查询日志
         
       </div>
     </a>
   
   
-    <a href="/2019/03/19/Java中的GC/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java中的GC</div>
+    <a href="/2019/01/21/一-MySQL调优之-索引指南/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">(一)MySQL调优之-索引指南</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -361,8 +416,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2019/03/21/一-MySQL调优之-索引指南/", 
-    sourceId: "一-MySQL调优之-索引指南",
+    url: "http://yoursite.com/2019/01/22/二-MySQL调优之-EXPLAIN关键字/", 
+    sourceId: "二-MySQL调优之-EXPLAIN关键字",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -467,22 +522,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">垃圾回收机制</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">GC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -507,11 +546,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+                <a href="javascript:void(0)" class="js-tag color2">垃圾回收机制</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
+                <a href="javascript:void(0)" class="js-tag color3">GC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">SHOW PROFILE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,6 +567,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Singleton</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
               </li>
              
               <li class="article-tag-list-item">
