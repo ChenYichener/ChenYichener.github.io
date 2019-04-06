@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java中的GC | Welcome</title>
+  <title>volatile 关键字 | Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="GCGC是什么？(分代收集算法)次数上频繁收集Young区 次数上较少收集Old区 基本不动Perm区 GC四大算法GC算法总体概述JVM在进行GC时， 并非每次都对新生代(Young)、老年代(Old), 永久代(Perm)一起回收， 大部分时候回收的都是指的新生代 因此GC按照回收的区域又分为两种类型： 一种是普通GC(Minor GC) 一种是全局GC(Major GC  or Full G">
-<meta name="keywords" content="垃圾回收机制,GC">
+  <meta name="description" content="volatile关键字前置知识前言：因为voaltile涉及的因素，太多，笔者先从学习volatile需要的前置知识说起。">
+<meta name="keywords" content="volatile关键字">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java中的GC">
-<meta property="og:url" content="http://yoursite.com/2019/03/19/Java中的GC/index.html">
+<meta property="og:title" content="volatile 关键字">
+<meta property="og:url" content="http://yoursite.com/2019/02/11/volatile-关键字/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="GCGC是什么？(分代收集算法)次数上频繁收集Young区 次数上较少收集Old区 基本不动Perm区 GC四大算法GC算法总体概述JVM在进行GC时， 并非每次都对新生代(Young)、老年代(Old), 永久代(Perm)一起回收， 大部分时候回收的都是指的新生代 因此GC按照回收的区域又分为两种类型： 一种是普通GC(Minor GC) 一种是全局GC(Major GC  or Full G">
+<meta property="og:description" content="volatile关键字前置知识前言：因为voaltile涉及的因素，太多，笔者先从学习volatile需要的前置知识说起。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-19T13:29:35.307Z">
+<meta property="og:image" content="https://i.loli.net/2019/04/06/5ca8514622abe.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/06/5ca8533d68a34.png">
+<meta property="og:updated_time" content="2019-04-06T07:36:47.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java中的GC">
-<meta name="twitter:description" content="GCGC是什么？(分代收集算法)次数上频繁收集Young区 次数上较少收集Old区 基本不动Perm区 GC四大算法GC算法总体概述JVM在进行GC时， 并非每次都对新生代(Young)、老年代(Old), 永久代(Perm)一起回收， 大部分时候回收的都是指的新生代 因此GC按照回收的区域又分为两种类型： 一种是普通GC(Minor GC) 一种是全局GC(Major GC  or Full G">
+<meta name="twitter:title" content="volatile 关键字">
+<meta name="twitter:description" content="volatile关键字前置知识前言：因为voaltile涉及的因素，太多，笔者先从学习volatile需要的前置知识说起。">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/06/5ca8514622abe.png">
   
     <link rel="alternative" href="/atom.xml" title="Welcome" type="application/atom+xml">
   
@@ -155,33 +158,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="n-Java中的GC" class="article article-type-n " itemscope itemprop="blogPost">
+            <article id="post-volatile-关键字" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java中的GC
+      volatile 关键字
     </h1>
   
 
         
-        <a href="/2019/03/19/Java中的GC/" class="archive-article-date">
-  	<time datetime="2019-03-19T12:21:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
+        <a href="/2019/02/11/volatile-关键字/" class="archive-article-date">
+  	<time datetime="2019-02-11T12:46:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h1><h2 id="GC是什么？-分代收集算法"><a href="#GC是什么？-分代收集算法" class="headerlink" title="GC是什么？(分代收集算法)"></a>GC是什么？(分代收集算法)</h2><p>次数上频繁收集Young区</p>
-<p>次数上较少收集Old区</p>
-<p>基本不动Perm区</p>
-<h2 id="GC四大算法"><a href="#GC四大算法" class="headerlink" title="GC四大算法"></a>GC四大算法</h2><h3 id="GC算法总体概述"><a href="#GC算法总体概述" class="headerlink" title="GC算法总体概述"></a>GC算法总体概述</h3><p>JVM在进行GC时， 并非每次都对新生代(Young)、老年代(Old), 永久代(Perm)一起回收， 大部分时候回收的都是指的新生代</p>
-<p>因此GC按照回收的区域又分为两种类型： 一种是普通GC(Minor GC) 一种是全局GC(Major GC  or Full GC)</p>
-<p>普通GC(Minor GC) : 指针对新生代区域的GC<br>全局GC(Major GC or Full GC)： 针对老年代的GC，偶尔伴随对新生代的GC以及对永久代的GC</p>
-<h3 id="4算法"><a href="#4算法" class="headerlink" title="4算法"></a>4算法</h3><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h3 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h3>
+        <h1 id="volatile关键字前置知识"><a href="#volatile关键字前置知识" class="headerlink" title="volatile关键字前置知识"></a>volatile关键字前置知识</h1><p>前言：因为voaltile涉及的因素，太多，笔者先从学习volatile需要的前置知识说起。</p>
+<a id="more"></a>
+<h3 id="1、高并发编程的三个要素"><a href="#1、高并发编程的三个要素" class="headerlink" title="1、高并发编程的三个要素"></a>1、高并发编程的三个要素</h3><h4 id="1-原子性"><a href="#1-原子性" class="headerlink" title="1.原子性"></a>1.原子性</h4><p>保证一个操作或者多个操作要么都成功要么都失败中间不能由于任何的因素中断</p>
+<h4 id="2-可见性"><a href="#2-可见性" class="headerlink" title="2.可见性"></a>2.可见性</h4><p>多么线程共享一个数据时，其中一个线程修改了变量需要保证其他线程能够看见</p>
+<h4 id="3-有序性"><a href="#3-有序性" class="headerlink" title="3.有序性"></a>3.有序性</h4><p>即程序执行的顺序按照代码的先后顺序执行，有序性涉及到一个happens before规则</p>
+<h5 id="3-1happens-before-relationship"><a href="#3-1happens-before-relationship" class="headerlink" title="3.1happens before relationship"></a>3.1happens before relationship</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.代码的执行顺序，编写在前面发生在编写后面的前面</span><br><span class="line"><span class="number">2</span>.unlock必须发生在lock之后</span><br><span class="line"><span class="number">3</span>.<span class="keyword">volatile</span>修饰的变量，对变量的写操作必须先于对变量的读操作</span><br><span class="line"><span class="number">4</span>.传递规则：操作A先于B， 操作B先于A，那么A肯定先于C</span><br><span class="line"><span class="number">5</span>.线程启动规则：线程的start方法先于run方法</span><br><span class="line"><span class="number">6</span>.线程的中断规则：interrupt方法必须在执行捕获之前</span><br><span class="line"><span class="number">7</span>.对象销毁规则：初始化先于finalize方法</span><br><span class="line"><span class="number">8</span>.线程终结规则：所有的操作都发生在线程死亡之前</span><br></pre></td></tr></table></figure>
+<h3 id="2、JMM-（Java-Memory-Model）Java内存模型"><a href="#2、JMM-（Java-Memory-Model）Java内存模型" class="headerlink" title="2、JMM （Java Memory Model）Java内存模型"></a>2、JMM （Java Memory Model）Java内存模型</h3><p>大家都知道CPU的速度是非常快的，但是我们的RAM相对来说会满一点，JMM中，有了一个实现，每一个CPU或者说每一个线程都会有自己的一块高速缓冲区,如下图所示</p>
+<p><img src="https://i.loli.net/2019/04/06/5ca8514622abe.png" alt></p>
+<h3 id="解决高速缓存数据一致性问题"><a href="#解决高速缓存数据一致性问题" class="headerlink" title="解决高速缓存数据一致性问题"></a><strong>解决高速缓存数据一致性问题</strong></h3><p>1.给数据总线加锁</p>
+<p>  总线(数据总线，地址总线，控制总线)</p>
+<p>2.CPU高速缓存一致性协议</p>
+<p>Intel  MESI</p>
+<p><img src="https://i.loli.net/2019/04/06/5ca8533d68a34.png" alt></p>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>1.当CPU写入数据的时候，如果发现该变量被其他线程共有(其他线程存有变量的副本)，就会发出一个信号，并且通知其他CPU该变量无效</p>
+<p>2.当其他CPU发现该变量已经失效了就会去缓存中更新数据</p>
+<h2 id="voaltile"><a href="#voaltile" class="headerlink" title="voaltile"></a>voaltile</h2><p>一旦一个共享变量被volatile就具备两层语义<br>1.保证了多个线程之间的可见性<br>2.禁止了重排序，也就是保证了有序性<br>3.不保证原子性</p>
+<h3 id="Code-Demo"><a href="#Code-Demo" class="headerlink" title="Code Demo"></a>Code Demo</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: 陈一臣   &lt;a href='mailto:chenyichenmail@163.com'&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileSimpleDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" start---"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (flag) &#123;  <span class="comment">// 因为这个线程没有进行“写”操作，所以它不会去主存中更新数据，导致线程间不可见</span></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" end---"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保证分线程先执行</span></span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        flag = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>给共享的变量加上volatile，这样就保证了可见性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: 陈一臣   &lt;a href='mailto:chenyichenmail@163.com'&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileSimpleDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" start---"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (flag) &#123; </span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" end---"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保证分线程先执行</span></span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        flag = <span class="keyword">false</span>; <span class="comment">// 加上voaltile之后，main线程更新了数据就会通知其他线程变量失效了</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="voaltile总结"><a href="#voaltile总结" class="headerlink" title="voaltile总结"></a>voaltile总结</h2><p>1.保证了线程间的可见性</p>
+<p>2.禁止重排序,保证了有序性</p>
+<h2 id="LOOK"><a href="#LOOK" class="headerlink" title="LOOK"></a>LOOK</h2><p><strong>volatile不保证原子性</strong></p>
+
       
 
       
@@ -215,11 +234,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">垃圾回收机制</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GC</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">volatile关键字</a>
         		</li>
       		
 		</ul>
@@ -275,7 +290,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/19/Java中的GC/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/11/volatile-关键字/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -289,9 +304,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/02/11/单例的四种实现方式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          单例的四种实现方式
+        
+      </div>
+    </a>
   
-    <a href="/2019/03/19/JVM指南/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JVM指南</div>
+  
+    <a href="/2019/01/30/什么是微服务/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">什么是微服务</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -322,8 +346,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2019/03/19/Java中的GC/", 
-    sourceId: "Java中的GC",
+    url: "http://yoursite.com/2019/02/11/volatile-关键字/", 
+    sourceId: "volatile-关键字",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -428,6 +452,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">volatile关键字</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -452,11 +480,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">垃圾回收机制</a>
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">GC</a>
+                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,22 +509,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Singleton</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Microservice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java虚拟机</a>
               </li>
              
               <li class="article-tag-list-item">
